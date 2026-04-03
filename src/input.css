@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-bg-dark: #231F20;
+    --color-bg-card: #2C2829;
+    --color-border: #3A3536;
+    --color-accent: #D5D9E5;
+    --color-accent-glow: rgba(213, 217, 229, 0.10);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  /* Hero fan-layout transforms */
+  .hero-card-left-2 {
+    transform: perspective(1000px) rotateY(25deg) rotateZ(-5deg) translateX(-20px) translateY(40px) scale(0.85);
+    transform-origin: right center;
+  }
+  .hero-card-left-1 {
+    transform: perspective(1000px) rotateY(15deg) rotateZ(-2deg) translateX(-10px) translateY(20px) scale(0.92);
+    transform-origin: right center;
+  }
+  .hero-card-center {
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+    z-index: 10;
+  }
+  .hero-card-right-1 {
+    transform: perspective(1000px) rotateY(-15deg) rotateZ(2deg) translateX(10px) translateY(20px) scale(0.92);
+    transform-origin: left center;
+  }
+  .hero-card-right-2 {
+    transform: perspective(1000px) rotateY(-25deg) rotateZ(5deg) translateX(20px) translateY(40px) scale(0.85);
+    transform-origin: left center;
+  }
+
+  /* Overline bracket decoration */
+  .overline-label::before {
+    content: "[ ";
+  }
+  .overline-label::after {
+    content: " ]";
+  }
+}

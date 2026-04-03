@@ -1,0 +1,1528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnovaMedia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./src/output.css" />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Instrument Serif", serif;
+      }
+
+      h1 {
+        font-size: clamp(48px, 8vw, 96px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        font-size: clamp(36px, 6vw, 72px);
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+      }
+
+      .font-serif {
+        font-family: "Instrument Serif", serif;
+      }
+
+      /* Localized grid background */
+      .grid-bg {
+        background-image:
+          linear-gradient(rgba(213, 217, 229, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(213, 217, 229, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        background-position: center top;
+        position: relative;
+      }
+
+      .grid-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Overline brackets */
+      .overline-label::before {
+        content: "[ ";
+      }
+      .overline-label::after {
+        content: " ]";
+      }
+
+      /* 1. Scroll-reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+      .reveal-delay-4 {
+        transition-delay: 0.4s;
+      }
+
+      /* 2. Hero text entrance */
+      .hero-line {
+        opacity: 0;
+        transform: translateY(40px) translateZ(0);
+        animation: heroReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .hero-line-1 {
+        animation-delay: 0.05s;
+      }
+      .hero-line-2 {
+        animation-delay: 0.2s;
+      }
+      .hero-line-3 {
+        animation-delay: 0.4s;
+      }
+      .hero-line-4 {
+        animation-delay: 0.6s;
+      }
+      .hero-line-5 {
+        animation-delay: 0.75s;
+      }
+      @keyframes heroReveal {
+        to {
+          opacity: 1;
+          transform: translateY(0) translateZ(0);
+        }
+      }
+
+      /* 7. Animated gradient blob */
+      .hero-blob {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(41, 121, 255, 0.14) 0%,
+          rgba(213, 217, 229, 0.12) 40%,
+          transparent 70%
+        );
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 1;
+        top: 20%;
+        left: 50%;
+        animation: blobDrift 10s ease-in-out infinite;
+      }
+      @keyframes blobDrift {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        33% {
+          transform: translate(-40%, -60%) scale(1.15);
+        }
+        66% {
+          transform: translate(-60%, -40%) scale(0.9);
+        }
+      }
+
+      /* 8. Cursor-following glow */
+      .hero-glow {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(41, 121, 255, 0.12),
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 2;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .hero-glow.active {
+        opacity: 1;
+      }
+
+      /* Primary CTA button */
+      .btn-primary {
+        background: linear-gradient(135deg, #2979ff 0%, #1a5fd4 100%);
+        border-radius: 12px;
+        transition:
+          transform 0.16s ease-out,
+          box-shadow 0.16s ease-out;
+        box-shadow: 0 4px 24px rgba(41, 121, 255, 0.35);
+      }
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #4d94ff 0%, #2979ff 100%);
+        box-shadow: 0 6px 32px rgba(41, 121, 255, 0.5);
+        transform: translateY(-2px);
+      }
+
+      /* FAQ accordion */
+      .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .faq-item summary::-webkit-details-marker {
+        display: none;
+      }
+      .faq-chevron {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: rgba(213, 217, 229, 0.4);
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease;
+      }
+      .faq-item[open] .faq-chevron {
+        transform: rotate(180deg);
+        color: rgba(213, 217, 229, 0.8);
+      }
+      .faq-answer {
+        overflow: hidden;
+        max-height: 0;
+        transition:
+          max-height 0.35s ease,
+          opacity 0.3s ease;
+        opacity: 0;
+      }
+      .faq-item[open] .faq-answer {
+        max-height: 300px;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-[#231F20] text-[#F5F3F4] overflow-x-hidden">
+    <!-- ============================================================
+       HEADER
+  ============================================================ -->
+    <header class="absolute top-0 left-0 right-0 z-50 py-6">
+      <div
+        class="max-w-[1200px] mx-auto px-6 flex items-center justify-between"
+      >
+        <a href="/" aria-label="UnovaMedia home">
+          <svg
+            width="196"
+            height="36"
+            viewBox="0 0 671 123"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M34.4131 13.5382C39.557 10.6722 45.818 10.6722 50.9619 13.5382L76.6494 27.8517C82.0358 30.8531 85.375 36.5361 85.375 42.7023V70.297C85.375 76.4632 82.0358 82.1462 76.6494 85.1476L50.9619 99.4611C45.8179 102.327 39.5571 102.327 34.4131 99.4611L8.72559 85.1476C3.33919 82.1462 0 76.4632 0 70.297V42.7023C0 36.5361 3.33919 30.8531 8.72559 27.8517L34.4131 13.5382ZM42.6875 24.3429C24.9675 24.3429 10.6028 38.7396 10.6025 56.4992C10.6025 74.2589 24.9673 88.6564 42.6875 88.6564C60.4076 88.6563 74.7725 74.2589 74.7725 56.4992C74.7722 38.7396 60.4075 24.343 42.6875 24.3429Z"
+              fill="#2a5550"
+            />
+            <path
+              d="M144.539 95C135.472 95 128.439 92.6333 123.439 87.9C118.505 83.1 116.039 76.4 116.039 67.8V27H126.739V67.8C126.739 73.8667 128.072 78.2 130.739 80.8C133.405 83.3333 138.005 84.6 144.539 84.6C151.072 84.6 155.639 83.3333 158.239 80.8C160.905 78.2 162.239 73.8667 162.239 67.8V27H173.039V67.8C173.039 76.4 170.539 83.1 165.539 87.9C160.539 92.6333 153.539 95 144.539 95ZM194.805 94H184.005V44.3H193.905V53.6H194.305C197.305 46.7333 203.072 43.3 211.605 43.3C217.805 43.3 222.472 45.0667 225.605 48.6C228.738 52.1333 230.305 56.8667 230.305 62.8V94H219.505V65.2C219.505 60.6667 218.638 57.4333 216.905 55.5C215.172 53.5667 212.072 52.6 207.605 52.6C203.138 52.6 199.872 53.5667 197.805 55.5C195.805 57.4333 194.805 60.7 194.805 65.3V94ZM263.25 95C255.65 95 249.617 92.6333 245.15 87.9C240.684 83.1667 238.45 76.9 238.45 69.1C238.45 61.3667 240.684 55.1333 245.15 50.4C249.617 45.6667 255.65 43.3 263.25 43.3C270.784 43.3 276.717 45.6667 281.05 50.4C285.45 55.0667 287.65 61.3 287.65 69.1C287.65 76.9 285.45 83.1667 281.05 87.9C276.717 92.6333 270.784 95 263.25 95ZM252.25 81.6C254.45 84.1333 258.117 85.4 263.25 85.4C268.384 85.4 271.984 84.1333 274.05 81.6C276.184 79 277.25 74.8333 277.25 69.1C277.25 63.4333 276.184 59.3333 274.05 56.8C271.917 54.2 268.317 52.9 263.25 52.9C258.117 52.9 254.45 54.2 252.25 56.8C250.117 59.3333 249.05 63.4333 249.05 69.1C249.05 74.8333 250.117 79 252.25 81.6ZM322.473 94H308.873L288.973 44.3H300.973L315.473 83.7H316.173L330.773 44.3H342.473L322.473 94ZM359.519 95C354.919 95 351.119 93.8333 348.119 91.5C345.186 89.1667 343.719 85.9 343.719 81.7C343.719 73.9 349.252 69.2333 360.319 67.7L377.719 65.1V62.4C377.719 58.8 376.852 56.3 375.119 54.9C373.386 53.5 370.519 52.8 366.519 52.8C362.586 52.8 359.752 53.5 358.019 54.9C356.352 56.3 355.519 58.6333 355.519 61.9V63.4H345.119V62.4C345.119 56.8 347.119 52.2333 351.119 48.7C355.186 45.1 360.519 43.3 367.119 43.3C373.852 43.3 379.019 45.1667 382.619 48.9C386.219 52.5667 388.019 57.5333 388.019 63.8V94H378.019V86.2H377.519C373.919 92.0667 367.919 95 359.519 95ZM354.219 80.9C354.219 82.8333 354.886 84.2333 356.219 85.1C357.619 85.9667 359.886 86.4 363.019 86.4C367.152 86.4 370.619 85.4333 373.419 83.5C376.286 81.5 377.719 78.2 377.719 73.6V72.7L361.919 75.1C359.052 75.5 357.052 76.1333 355.919 77C354.786 77.8 354.219 79.1 354.219 80.9Z"
+              fill="#2a5550"
+            />
+            <path
+              d="M412.761 94H397.761V27H418.861L430.561 58.3L435.961 75.5H436.961L442.261 58.3L453.461 27H474.561V94H459.561V62.3L460.361 49.4H459.261L455.361 62.5L445.261 89.4H427.061L416.961 62.5L412.961 49.4H411.961L412.761 62.3V94ZM506.412 95C498.012 95 491.712 92.7333 487.512 88.2C483.312 83.6 481.212 77.2 481.212 69C481.212 60.9333 483.479 54.5333 488.012 49.8C492.545 45.0667 498.712 42.7 506.512 42.7C513.979 42.7 519.845 44.7333 524.112 48.8C528.379 52.8 530.512 58.1333 530.512 64.8C530.512 67.0667 530.279 69.5333 529.812 72.2H495.312C495.445 75.7333 496.345 78.2667 498.012 79.8C499.679 81.2667 502.545 82 506.612 82C512.345 82 515.212 80.5333 515.212 77.6V77H530.012V78C530.012 83.3333 527.879 87.5 523.612 90.5C519.412 93.5 513.679 95 506.412 95ZM513.712 57.1C512.045 55.7 509.479 55 506.012 55C502.545 55 499.979 55.6667 498.312 57C496.712 58.3333 495.745 60.3667 495.412 63.1H516.112C516.245 60.5 515.445 58.5 513.712 57.1ZM558.286 95C551.286 95 545.886 92.6667 542.086 88C538.352 83.3333 536.486 76.9667 536.486 68.9C536.486 60.9 538.419 54.5333 542.286 49.8C546.152 45.0667 551.486 42.7 558.286 42.7C565.219 42.7 570.086 45.2333 572.886 50.3H573.486V27H588.386V94H574.486V86.6H573.986C571.319 92.2 566.086 95 558.286 95ZM551.386 68.9C551.386 73.6333 552.186 77.0333 553.786 79.1C555.386 81.1667 558.286 82.2 562.486 82.2C566.152 82.2 568.886 81.5 570.686 80.1C572.552 78.6333 573.486 76.2333 573.486 72.9V64.8C573.486 61.4667 572.552 59.1 570.686 57.7C568.886 56.2333 566.152 55.5 562.486 55.5C558.286 55.5 555.386 56.5333 553.786 58.6C552.186 60.6667 551.386 64.1 551.386 68.9ZM611.663 38H596.963L596.763 27H611.663V38ZM611.963 94H596.963V43.7H611.963V94ZM634.217 95C629.55 95 625.75 93.8 622.817 91.4C619.883 89 618.417 85.6 618.417 81.2C618.417 73.4 623.75 68.6667 634.417 67L651.617 64.4V62.8C651.617 60 650.883 58.1333 649.417 57.2C648.017 56.2667 645.717 55.8 642.517 55.8C639.45 55.8 637.25 56.3 635.917 57.3C634.65 58.3 634.017 60.0667 634.017 62.6V63.7H619.717V62.6C619.717 56.6 621.85 51.8 626.117 48.2C630.45 44.5333 636.15 42.7 643.217 42.7C650.55 42.7 656.15 44.6 660.017 48.4C663.883 52.1333 665.817 57.4 665.817 64.2V94H651.917V87.2H651.317C647.517 92.4 641.817 95 634.217 95ZM632.717 80C632.717 82.4 634.883 83.6 639.217 83.6C647.483 83.6 651.617 80.4667 651.617 74.2L637.217 76.4C634.217 76.8667 632.717 78.0667 632.717 80Z"
+              fill="#F5F3F4"
+            />
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <!-- ============================================================
+       HERO
+  ============================================================ -->
+    <section
+      id="hero"
+      class="relative pt-20 text-center min-h-90vh overflow-hidden"
+    >
+      <!-- Background gradient -->
+      <div
+        class="pointer-events-none absolute inset-0"
+        aria-hidden="true"
+        style="background: #231f20"
+      ></div>
+
+      <!-- Animated gradient blob -->
+      <div class="hero-blob" aria-hidden="true"></div>
+      <!-- Cursor-following glow -->
+      <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
+
+      <div class="relative z-20 mb-16 max-w-5xl mx-auto py-20 px-6">
+        <div class="relative z-10 text-center">
+          <!-- Pill badge -->
+          <div
+            class="hero-line hero-line-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#2979FF]/30 bg-[#2979FF]/10 text-[#2979FF] text-xs font-medium mb-8"
+          >
+            For B2B SaaS companies
+          </div>
+
+          <h1
+            class="text-5xl md:text-[5.5rem] leading-[1.05] tracking-tighter mb-6 text-[#F5F3F4]"
+          >
+            <span class="hero-line hero-line-2 block">Your calendar,</span>
+            <span class="hero-line hero-line-3 block"
+              >full of the right people.</span
+            >
+          </h1>
+
+          <p
+            class="hero-line hero-line-4 text-white/60 font-normal max-w-xl mx-auto text-lg mb-10 leading-relaxed"
+          >
+            We get you 10 qualified demos a month in 30 days,<br />or you pay
+            nothing.
+          </p>
+
+          <div class="hero-line hero-line-5 flex flex-col items-center gap-3">
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
+            >
+              Book a free strategy call
+              <span
+                class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
+              >
+                <i
+                  class="fa-solid fa-arrow-right text-white text-[0.65rem]"
+                ></i>
+              </span>
+            </a>
+            <span class="text-xs text-white/40">No commitment.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       THE PROBLEM
+  ============================================================ -->
+    <section id="problem" class="py-28">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start"
+        >
+          <!-- Left: label + heading -->
+          <div class="reveal">
+            <p
+              class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+            >
+              The problem
+            </p>
+            <h2 class="leading-[1.08] tracking-tighter text-[#F5F3F4]">
+              You have a product that works. Getting in front of buyers is the
+              hard part.
+            </h2>
+          </div>
+
+          <!-- Right: bullet list -->
+          <div class="flex flex-col gap-0">
+            <div
+              class="flex gap-6 py-8 border-t border-[#3A3536] reveal reveal-delay-1"
+            >
+              <span class="text-[#D5D9E5]/60 mt-1 shrink-0 text-lg">—</span>
+              <p class="text-white/70 text-lg leading-relaxed">
+                You're closing customers, but mostly from referrals and luck.
+                There's no repeatable way to find more.
+              </p>
+            </div>
+            <div
+              class="flex gap-6 py-8 border-t border-[#3A3536] reveal reveal-delay-2"
+            >
+              <span class="text-[#D5D9E5]/60 mt-1 shrink-0 text-lg">—</span>
+              <p class="text-white/70 text-lg leading-relaxed">
+                You know outbound works. You just don't have the time, the
+                system, or the appetite to figure it out from scratch.
+              </p>
+            </div>
+            <div
+              class="flex gap-6 py-8 border-t border-b border-[#3A3536] reveal reveal-delay-3"
+            >
+              <span class="text-[#D5D9E5]/60 mt-1 shrink-0 text-lg">—</span>
+              <p class="text-white/70 text-lg leading-relaxed">
+                Your calendar has gaps that shouldn't be there. Every empty slot
+                is pipeline you're not building.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       WHAT TO EXPECT
+  ============================================================ -->
+    <section
+      id="process"
+      class="py-28 bg-[#2C2829] rounded-4xl mx-4 md:mx-8 mb-11"
+    >
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="mb-16 reveal">
+          <p
+            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+          >
+            What to expect
+          </p>
+          <h2 class="leading-[1.1] tracking-tighter text-white">
+            One call to start.<br />
+            Demos in your calendar within two weeks.
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div
+            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-1"
+          >
+            <span
+              class="inline-block bg-[#D5D9E5]/10 text-[#D5D9E5] text-xs font-semibold px-3 py-1 mb-6 rounded-md"
+              >Week 1</span
+            >
+            <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
+              One onboarding call. Then we take it from there.
+            </h3>
+            <p class="text-sm text-white/50 leading-relaxed">
+              We learn your business, your buyer, and what a good demo looks
+              like for you. After that, you don't need to think about it.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-2"
+          >
+            <span
+              class="inline-block bg-[#D5D9E5]/10 text-[#D5D9E5] text-xs font-semibold px-3 py-1 mb-6 rounded-md"
+              >Week 2</span
+            >
+            <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
+              First activity hits.
+            </h3>
+            <p class="text-sm text-white/50 leading-relaxed">
+              Outreach is live. You start seeing interest from the right kind of
+              companies.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-3"
+          >
+            <span
+              class="inline-block bg-[#D5D9E5]/10 text-[#D5D9E5] text-xs font-semibold px-3 py-1 mb-6 rounded-md"
+              >Weeks 3–4</span
+            >
+            <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
+              Demos land in your calendar.
+            </h3>
+            <p class="text-sm text-white/50 leading-relaxed">
+              Qualified buyers. The right fit. You show up, run the demo, and
+              close.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#D5D9E5] border border-[#b8bdc9] p-8 rounded-2xl reveal reveal-delay-4"
+          >
+            <span
+              class="inline-block bg-[#231F20]/10 text-[#231F20] text-xs font-semibold px-3 py-1 mb-6 rounded-md"
+              >Ongoing</span
+            >
+            <h3 class="text-2xl font-semibold text-[#231F20] mb-3 leading-snug">
+              A weekly report. Nothing else to manage.
+            </h3>
+            <p class="text-sm text-[#231F20]/60 leading-relaxed">
+              You'll always know where things stand. Beyond that, it runs
+              without you.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       THE GUARANTEE
+  ============================================================ -->
+    <section
+      id="guarantee"
+      class="relative py-28 overflow-hidden"
+      style="background-color: #d5d9e5"
+    >
+      <!-- Glow orb behind calendar -->
+      <div
+        aria-hidden="true"
+        style="
+          position: absolute;
+          right: -60px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 520px;
+          height: 520px;
+          border-radius: 9999px;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.82) 0%,
+            rgba(213, 217, 229, 0.4) 45%,
+            transparent 70%
+          );
+          filter: blur(32px);
+          pointer-events: none;
+          z-index: 0;
+        "
+      ></div>
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div
+          class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
+        >
+          <!-- Left: label + heading + description -->
+          <div class="reveal">
+            <p
+              class="text-xs font-medium text-[#231F20]/50 tracking-widest uppercase mb-5 overline-label"
+            >
+              The guarantee
+            </p>
+            <h2 class="leading-[1.08] tracking-tighter mb-6 text-[#231F20]">
+              10 qualified demos a month in 30 days, or you pay nothing.
+            </h2>
+            <p class="text-[#231F20]/70 text-lg leading-relaxed">
+              We only work with founders we're confident we can deliver for. If
+              we don't hit the number, we don't stop and we don't invoice. We
+              keep going until we do.
+            </p>
+          </div>
+
+          <!-- Right: calendar widget -->
+          <div class="flex justify-center md:justify-end reveal reveal-delay-2">
+            <div
+              class="rounded-2xl p-6 w-full max-w-[360px]"
+              style="
+                transition: all 0.3s;
+                background: linear-gradient(
+                  145deg,
+                  rgba(255, 255, 255, 0.38) 0%,
+                  rgba(255, 255, 255, 0.18) 100%
+                );
+                backdrop-filter: blur(24px) saturate(1.6);
+                -webkit-backdrop-filter: blur(24px) saturate(1.6);
+                border: 1px solid rgba(255, 255, 255, 0.55);
+                box-shadow:
+                  0 2px 0 0 rgba(255, 255, 255, 0.85) inset,
+                  0 -1px 0 0 rgba(35, 31, 32, 0.05) inset,
+                  2px 0 0 0 rgba(255, 255, 255, 0.45) inset,
+                  0 20px 60px rgba(35, 31, 32, 0.1),
+                  0 2px 8px rgba(35, 31, 32, 0.06);
+              "
+            >
+              <!-- Calendar header -->
+              <div class="flex items-center justify-between mb-5">
+                <div class="flex items-center gap-1.5">
+                  <span
+                    id="cal-month-label"
+                    class="font-bold text-[#231F20] text-lg leading-none"
+                    >Apr 2026</span
+                  >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M5 3l4 4-4 4"
+                      stroke="#2979FF"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div class="flex items-center gap-4">
+                  <button
+                    id="cal-prev"
+                    aria-label="Previous month"
+                    class="text-[#2979FF]"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M10 3L6 8l4 5"
+                        stroke="#2979FF"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    id="cal-next"
+                    aria-label="Next month"
+                    class="text-[#2979FF]"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 3l4 5-4 5"
+                        stroke="#2979FF"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Day-of-week headers -->
+              <div class="grid grid-cols-7 mb-1">
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >MON</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >TUE</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >WED</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >THU</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >FRI</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >SAT</span
+                >
+                <span
+                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  >SUN</span
+                >
+              </div>
+
+              <!-- Calendar days — April 2026 starts on Wednesday -->
+              <!-- Helper classes: .cal-day (normal), .cal-day-event (demo booked), .cal-day-dim (weekend/empty) -->
+              <style>
+                .cal-day {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  padding: 3px 0;
+                  gap: 2px;
+                }
+                .cal-num {
+                  width: 28px;
+                  height: 28px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 0.8125rem;
+                  font-weight: 600;
+                  color: #231f20;
+                  border-radius: 9999px;
+                }
+                .cal-num-event {
+                  background: #2979ff;
+                  color: #fff;
+                }
+                .cal-num-dim {
+                  color: rgba(35, 31, 32, 0.35);
+                }
+                .cal-dot {
+                  width: 5px;
+                  height: 5px;
+                  border-radius: 9999px;
+                  background: #2979ff;
+                }
+                .cal-num-today {
+                  box-shadow: 0 0 0 2px #90caf9;
+                }
+                #cal-grid {
+                  transition: opacity 160ms ease;
+                  grid-auto-rows: 42px;
+                  overflow: hidden;
+                }
+              </style>
+
+              <div id="cal-grid" class="grid grid-cols-7"></div>
+
+              <!-- Time row -->
+              <div
+                class="flex items-center justify-between mt-4 pt-4 border-t border-[#231F20]/10"
+              >
+                <span class="font-semibold text-[#231F20] text-sm">Time</span>
+                <span
+                  id="cal-time"
+                  class="text-[#231F20] text-sm font-semibold px-4 py-1.5 rounded-xl"
+                  style="background: rgba(0, 0, 0, 0.05)"
+                  >09:00:00 AM</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       WHO IT'S FOR
+  ============================================================ -->
+    <section id="who" class="py-28">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="max-w-4xl">
+          <p
+            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label reveal"
+          >
+            Who it's for
+          </p>
+          <h2 class="leading-[1.1] tracking-tighter mb-6 text-[#F5F3F4] reveal">
+            This works for a specific kind of founder.
+          </h2>
+          <p
+            class="text-white/60 text-lg mb-16 leading-relaxed max-w-2xl reveal"
+          >
+            We're selective about who we work with — because the guarantee only
+            holds when the right conditions are in place.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+          <div
+            class="bg-[#2C2829] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-1"
+          >
+            <span
+              class="text-xs font-semibold text-[#2979FF] uppercase tracking-widest mb-3 block"
+              >Stage</span
+            >
+            <p class="text-[#F5F3F4] leading-relaxed">
+              Early revenue. $1k–$10k MRR. You've closed real customers and the
+              product works.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#2C2829] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-2"
+          >
+            <span
+              class="text-xs font-semibold text-[#2979FF] uppercase tracking-widest mb-3 block"
+              >Product</span
+            >
+            <p class="text-[#F5F3F4] leading-relaxed">
+              B2B SaaS that sells to business buyers and needs a conversation to
+              close.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#2C2829] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-3"
+          >
+            <span
+              class="text-xs font-semibold text-[#2979FF] uppercase tracking-widest mb-3 block"
+              >Sales</span
+            >
+            <p class="text-[#F5F3F4] leading-relaxed">
+              Founder-led. You run the demos yourself and you know you can close
+              when you're in the room.
+            </p>
+          </div>
+
+          <div
+            class="bg-[#2C2829] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-4"
+          >
+            <span
+              class="text-xs font-semibold text-[#2979FF] uppercase tracking-widest mb-3 block"
+              >Deal size</span
+            >
+            <p class="text-[#F5F3F4] leading-relaxed">
+              ACV of roughly €2k or more — enough that a booked demo genuinely
+              moves the needle.
+            </p>
+          </div>
+        </div>
+
+        <p class="text-sm text-white/40 italic max-w-xl reveal">
+          If you're pre-revenue, fully self-serve, or not yet doing founder-led
+          sales — this probably isn't the right fit yet.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       WHY US
+  ============================================================ -->
+    <section id="why" class="py-28 bg-[#2C2829] rounded-4xl mx-4 md:mx-8">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="max-w-3xl">
+          <p
+            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label reveal"
+          >
+            Why us
+          </p>
+          <h2
+            class="leading-[1.1] tracking-tighter mb-10 text-[#F5F3F4] reveal"
+          >
+            We know this space from the inside.
+          </h2>
+          <div class="flex flex-col gap-6">
+            <p class="text-white/70 text-lg leading-relaxed reveal">
+              We've spent three years helping early-stage companies build their
+              digital presence — and we've learned what makes someone take the
+              next step. We understand B2B sales, not just marketing. We've
+              built our own SaaS products, lived the same problems you're
+              dealing with, and we know the difference between outreach that
+              creates conversations and outreach that gets ignored.
+            </p>
+            <p class="text-white/70 text-lg leading-relaxed reveal">
+              That's why the offer is outcome-based. Not reports. Not activity.
+              Demos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       REVIEWS
+  ============================================================ -->
+    <section id="reviews" class="py-28 bg-[#2C2829] rounded-4xl mx-4 md:mx-8">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="mb-12 max-w-4xl reveal">
+          <p
+            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+          >
+            What people say
+          </p>
+          <h2 class="leading-[1.1] tracking-tighter mb-4 text-white">
+            Trusted by founders who needed things done right.
+          </h2>
+          <p class="text-white/40 text-sm leading-relaxed max-w-lg">
+            The reviews below are from our web and digital work. Our outbound
+            service is new — we'd rather show you real results than borrowed
+            ones. Ask us about early access.
+          </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-4">
+          <div
+            class="bg-[#231F20] border border-[#3A3536] overflow-hidden text-left w-full rounded-2xl reveal reveal-delay-1"
+          >
+            <div class="p-8 md:p-10">
+              <div class="flex gap-1 mb-5">
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+              </div>
+              <p class="text-sm text-white/60 leading-relaxed mb-8 max-w-sm">
+                [INSERT CLIENT REVIEW]
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span
+                    class="text-sm font-medium text-white block leading-tight"
+                    >[INSERT NAME]</span
+                  >
+                  <span class="text-xs text-white/40">[INSERT COMPANY]</span>
+                </div>
+                <span
+                  class="text-6xl font-bold text-[#2979FF] leading-none select-none"
+                  >"</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-[#231F20] border border-[#3A3536] overflow-hidden text-left w-full rounded-2xl reveal reveal-delay-2"
+          >
+            <div class="p-8 md:p-10">
+              <div class="flex gap-1 mb-5">
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+              </div>
+              <p class="text-sm text-white/60 leading-relaxed mb-8 max-w-sm">
+                [INSERT CLIENT REVIEW]
+              </p>
+              <div class="flex items-center justify-between">
+                <div>
+                  <span
+                    class="text-sm font-medium text-white block leading-tight"
+                    >[INSERT NAME]</span
+                  >
+                  <span class="text-xs text-white/40">[INSERT COMPANY]</span>
+                </div>
+                <span
+                  class="text-6xl font-bold text-[#2979FF] leading-none select-none"
+                  >"</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       FAQ
+  ============================================================ -->
+    <section id="faq" class="py-28">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div
+          class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-10 md:gap-20 items-start"
+        >
+          <!-- Left: label + heading -->
+          <div class="md:sticky md:top-24 reveal my-auto">
+            <p
+              class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+            >
+              Questions
+            </p>
+            <h2 class="leading-[1.08] tracking-tighter text-[#F5F3F4]">
+              The things people usually ask.
+            </h2>
+          </div>
+
+          <!-- Right: FAQ items -->
+          <div>
+            <details
+              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-1"
+            >
+              <summary>
+                <span class="font-semibold text-[#F5F3F4] text-lg"
+                  >What counts as a "qualified demo"?</span
+                >
+                <svg
+                  class="faq-chevron"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 7.5l5 5 5-5"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p class="text-white/60 leading-relaxed pt-4">
+                  A booked call with a decision-maker at a company that fits
+                  your ICP. We agree on the exact criteria before we start — no
+                  ambiguity about what counts.
+                </p>
+              </div>
+            </details>
+
+            <details
+              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-2"
+            >
+              <summary>
+                <span class="font-semibold text-[#F5F3F4] text-lg"
+                  >What if I don't get 10 demos in 30 days?</span
+                >
+                <svg
+                  class="faq-chevron"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 7.5l5 5 5-5"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p class="text-white/60 leading-relaxed pt-4">
+                  We keep going. No new invoice, no hard conversation. We run it
+                  until the number is hit. That's the deal.
+                </p>
+              </div>
+            </details>
+
+            <details
+              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-3"
+            >
+              <summary>
+                <span class="font-semibold text-[#F5F3F4] text-lg"
+                  >How much time does this take from me?</span
+                >
+                <svg
+                  class="faq-chevron"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 7.5l5 5 5-5"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p class="text-white/60 leading-relaxed pt-4">
+                  One onboarding call at the start. Quick responses when warm
+                  leads come in. That's about it — the rest runs without you.
+                </p>
+              </div>
+            </details>
+
+            <details
+              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-4"
+            >
+              <summary>
+                <span class="font-semibold text-[#F5F3F4] text-lg"
+                  >How quickly do demos start appearing?</span
+                >
+                <svg
+                  class="faq-chevron"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 7.5l5 5 5-5"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p class="text-white/60 leading-relaxed pt-4">
+                  Most clients see their first demos in week two. You'll see
+                  activity from day one.
+                </p>
+              </div>
+            </details>
+
+            <details
+              class="faq-item py-8 border-t border-b border-[#3A3536] reveal"
+            >
+              <summary>
+                <span class="font-semibold text-[#F5F3F4] text-lg"
+                  >Do I need anything set up on my end?</span
+                >
+                <svg
+                  class="faq-chevron"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 7.5l5 5 5-5"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </summary>
+              <div class="faq-answer">
+                <p class="text-white/60 leading-relaxed pt-4">
+                  No. We take care of the technical side completely. All you
+                  need is a calendar and a clear picture of who your best
+                  customers are.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       FINAL CTA
+  ============================================================ -->
+    <section id="contact" class="relative py-28 overflow-x-hidden">
+      <!-- Bottom gradient -->
+      <div
+        class="pointer-events-none absolute bottom-0 left-0 w-full h-[500px]"
+        aria-hidden="true"
+        style="
+          background: linear-gradient(
+            0deg,
+            rgba(41, 121, 255, 0.08) 0%,
+            transparent 100%
+          );
+        "
+      ></div>
+
+      <div
+        class="relative max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between gap-16"
+      >
+        <div class="relative flex-1 px-6 md:px-10 reveal">
+          <div class="relative z-10 text-center md:text-left">
+            <h2 class="tracking-tighter leading-[1.05] mb-6 text-[#F5F3F4]">
+              Ready to fill<br />
+              your calendar?
+            </h2>
+            <p
+              class="text-white/60 leading-relaxed max-w-md mx-auto md:mx-0 mb-8"
+            >
+              Book a free 30-minute call. We'll work out if it's a good fit —
+              and if it is, we can usually get started within the week.
+            </p>
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
+            >
+              Book a strategy call
+              <span
+                class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
+              >
+                <i
+                  class="fa-solid fa-arrow-right text-white text-[0.65rem]"
+                ></i>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Cal.com embed -->
+        <div
+          class="w-full md:w-[520px] shrink-0 overflow-hidden border border-[#3A3536] bg-[#2C2829] shadow-sm rounded-2xl"
+        >
+          <div
+            style="width: 100%; height: 760px; overflow: hidden"
+            id="my-cal-inline-onboarding-call"
+          ></div>
+          <script type="text/javascript">
+            (function (C, A, L) {
+              let p = function (a, ar) {
+                a.q.push(ar);
+              };
+              let d = C.document;
+              C.Cal =
+                C.Cal ||
+                function () {
+                  let cal = C.Cal;
+                  let ar = arguments;
+                  if (!cal.loaded) {
+                    cal.ns = {};
+                    cal.q = cal.q || [];
+                    d.head.appendChild(d.createElement("script")).src = A;
+                    cal.loaded = true;
+                  }
+                  if (ar[0] === L) {
+                    const api = function () {
+                      p(api, arguments);
+                    };
+                    const namespace = ar[1];
+                    api.q = api.q || [];
+                    if (typeof namespace === "string") {
+                      cal.ns[namespace] = cal.ns[namespace] || api;
+                      p(cal.ns[namespace], ar);
+                      p(cal, ["initNamespace", namespace]);
+                    } else p(cal, ar);
+                    return;
+                  }
+                  p(cal, ar);
+                };
+            })(window, "https://app.cal.com/embed/embed.js", "init");
+            Cal("init", "onboarding-call", { origin: "https://app.cal.com" });
+
+            Cal.ns["onboarding-call"]("inline", {
+              elementOrSelector: "#my-cal-inline-onboarding-call",
+              config: {
+                layout: "month_view",
+                useSlotsViewOnSmallScreen: "true",
+              },
+              calLink: "team/dominium-ecom/onboarding-call",
+            });
+
+            Cal.ns["onboarding-call"]("ui", {
+              hideEventTypeDetails: false,
+              layout: "month_view",
+            });
+          </script>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+    <footer
+      class="pt-20 overflow-hidden"
+      style="background: rgba(41, 121, 255, 0.08)"
+    >
+      <div class="max-w-[1200px] mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between gap-10 mb-16">
+          <div>
+            <a href="/" aria-label="Unova Media home" class="mb-4">
+              <svg
+                width="196"
+                height="36"
+                viewBox="0 0 671 123"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M34.4131 13.5382C39.557 10.6722 45.818 10.6722 50.9619 13.5382L76.6494 27.8517C82.0358 30.8531 85.375 36.5361 85.375 42.7023V70.297C85.375 76.4632 82.0358 82.1462 76.6494 85.1476L50.9619 99.4611C45.8179 102.327 39.5571 102.327 34.4131 99.4611L8.72559 85.1476C3.33919 82.1462 0 76.4632 0 70.297V42.7023C0 36.5361 3.33919 30.8531 8.72559 27.8517L34.4131 13.5382ZM42.6875 24.3429C24.9675 24.3429 10.6028 38.7396 10.6025 56.4992C10.6025 74.2589 24.9673 88.6564 42.6875 88.6564C60.4076 88.6563 74.7725 74.2589 74.7725 56.4992C74.7722 38.7396 60.4075 24.343 42.6875 24.3429Z"
+                  fill="#2a5550"
+                />
+                <path
+                  d="M144.539 95C135.472 95 128.439 92.6333 123.439 87.9C118.505 83.1 116.039 76.4 116.039 67.8V27H126.739V67.8C126.739 73.8667 128.072 78.2 130.739 80.8C133.405 83.3333 138.005 84.6 144.539 84.6C151.072 84.6 155.639 83.3333 158.239 80.8C160.905 78.2 162.239 73.8667 162.239 67.8V27H173.039V67.8C173.039 76.4 170.539 83.1 165.539 87.9C160.539 92.6333 153.539 95 144.539 95ZM194.805 94H184.005V44.3H193.905V53.6H194.305C197.305 46.7333 203.072 43.3 211.605 43.3C217.805 43.3 222.472 45.0667 225.605 48.6C228.738 52.1333 230.305 56.8667 230.305 62.8V94H219.505V65.2C219.505 60.6667 218.638 57.4333 216.905 55.5C215.172 53.5667 212.072 52.6 207.605 52.6C203.138 52.6 199.872 53.5667 197.805 55.5C195.805 57.4333 194.805 60.7 194.805 65.3V94ZM263.25 95C255.65 95 249.617 92.6333 245.15 87.9C240.684 83.1667 238.45 76.9 238.45 69.1C238.45 61.3667 240.684 55.1333 245.15 50.4C249.617 45.6667 255.65 43.3 263.25 43.3C270.784 43.3 276.717 45.6667 281.05 50.4C285.45 55.0667 287.65 61.3 287.65 69.1C287.65 76.9 285.45 83.1667 281.05 87.9C276.717 92.6333 270.784 95 263.25 95ZM252.25 81.6C254.45 84.1333 258.117 85.4 263.25 85.4C268.384 85.4 271.984 84.1333 274.05 81.6C276.184 79 277.25 74.8333 277.25 69.1C277.25 63.4333 276.184 59.3333 274.05 56.8C271.917 54.2 268.317 52.9 263.25 52.9C258.117 52.9 254.45 54.2 252.25 56.8C250.117 59.3333 249.05 63.4333 249.05 69.1C249.05 74.8333 250.117 79 252.25 81.6ZM322.473 94H308.873L288.973 44.3H300.973L315.473 83.7H316.173L330.773 44.3H342.473L322.473 94ZM359.519 95C354.919 95 351.119 93.8333 348.119 91.5C345.186 89.1667 343.719 85.9 343.719 81.7C343.719 73.9 349.252 69.2333 360.319 67.7L377.719 65.1V62.4C377.719 58.8 376.852 56.3 375.119 54.9C373.386 53.5 370.519 52.8 366.519 52.8C362.586 52.8 359.752 53.5 358.019 54.9C356.352 56.3 355.519 58.6333 355.519 61.9V63.4H345.119V62.4C345.119 56.8 347.119 52.2333 351.119 48.7C355.186 45.1 360.519 43.3 367.119 43.3C373.852 43.3 379.019 45.1667 382.619 48.9C386.219 52.5667 388.019 57.5333 388.019 63.8V94H378.019V86.2H377.519C373.919 92.0667 367.919 95 359.519 95ZM354.219 80.9C354.219 82.8333 354.886 84.2333 356.219 85.1C357.619 85.9667 359.886 86.4 363.019 86.4C367.152 86.4 370.619 85.4333 373.419 83.5C376.286 81.5 377.719 78.2 377.719 73.6V72.7L361.919 75.1C359.052 75.5 357.052 76.1333 355.919 77C354.786 77.8 354.219 79.1 354.219 80.9Z"
+                  fill="#2a5550"
+                />
+                <path
+                  d="M412.761 94H397.761V27H418.861L430.561 58.3L435.961 75.5H436.961L442.261 58.3L453.461 27H474.561V94H459.561V62.3L460.361 49.4H459.261L455.361 62.5L445.261 89.4H427.061L416.961 62.5L412.961 49.4H411.961L412.761 62.3V94ZM506.412 95C498.012 95 491.712 92.7333 487.512 88.2C483.312 83.6 481.212 77.2 481.212 69C481.212 60.9333 483.479 54.5333 488.012 49.8C492.545 45.0667 498.712 42.7 506.512 42.7C513.979 42.7 519.845 44.7333 524.112 48.8C528.379 52.8 530.512 58.1333 530.512 64.8C530.512 67.0667 530.279 69.5333 529.812 72.2H495.312C495.445 75.7333 496.345 78.2667 498.012 79.8C499.679 81.2667 502.545 82 506.612 82C512.345 82 515.212 80.5333 515.212 77.6V77H530.012V78C530.012 83.3333 527.879 87.5 523.612 90.5C519.412 93.5 513.679 95 506.412 95ZM513.712 57.1C512.045 55.7 509.479 55 506.012 55C502.545 55 499.979 55.6667 498.312 57C496.712 58.3333 495.745 60.3667 495.412 63.1H516.112C516.245 60.5 515.445 58.5 513.712 57.1ZM558.286 95C551.286 95 545.886 92.6667 542.086 88C538.352 83.3333 536.486 76.9667 536.486 68.9C536.486 60.9 538.419 54.5333 542.286 49.8C546.152 45.0667 551.486 42.7 558.286 42.7C565.219 42.7 570.086 45.2333 572.886 50.3H573.486V27H588.386V94H574.486V86.6H573.986C571.319 92.2 566.086 95 558.286 95ZM551.386 68.9C551.386 73.6333 552.186 77.0333 553.786 79.1C555.386 81.1667 558.286 82.2 562.486 82.2C566.152 82.2 568.886 81.5 570.686 80.1C572.552 78.6333 573.486 76.2333 573.486 72.9V64.8C573.486 61.4667 572.552 59.1 570.686 57.7C568.886 56.2333 566.152 55.5 562.486 55.5C558.286 55.5 555.386 56.5333 553.786 58.6C552.186 60.6667 551.386 64.1 551.386 68.9ZM611.663 38H596.963L596.763 27H611.663V38ZM611.963 94H596.963V43.7H611.963V94ZM634.217 95C629.55 95 625.75 93.8 622.817 91.4C619.883 89 618.417 85.6 618.417 81.2C618.417 73.4 623.75 68.6667 634.417 67L651.617 64.4V62.8C651.617 60 650.883 58.1333 649.417 57.2C648.017 56.2667 645.717 55.8 642.517 55.8C639.45 55.8 637.25 56.3 635.917 57.3C634.65 58.3 634.017 60.0667 634.017 62.6V63.7H619.717V62.6C619.717 56.6 621.85 51.8 626.117 48.2C630.45 44.5333 636.15 42.7 643.217 42.7C650.55 42.7 656.15 44.6 660.017 48.4C663.883 52.1333 665.817 57.4 665.817 64.2V94H651.917V87.2H651.317C647.517 92.4 641.817 95 634.217 95ZM632.717 80C632.717 82.4 634.883 83.6 639.217 83.6C647.483 83.6 651.617 80.4667 651.617 74.2L637.217 76.4C634.217 76.8667 632.717 78.0667 632.717 80Z"
+                  fill="#F5F3F4"
+                />
+              </svg>
+            </a>
+            <p class="text-sm text-white/40 max-w-[280px] leading-relaxed mt-4">
+              Outbound demo-booking for early-stage B2B SaaS founders.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-10"
+        >
+          <p class="text-xs text-white/40">
+            &copy; 2026 Unova Media. All rights reserved.
+          </p>
+          <div class="flex gap-6">
+            <a
+              href="#"
+              class="text-xs text-white/40 hover:text-white transition-colors"
+              >Terms &amp; Condition</a
+            >
+            <a
+              href="#"
+              class="text-xs text-white/40 hover:text-white transition-colors"
+              >Privacy Policy</a
+            >
+          </div>
+          <div class="flex gap-4">
+            <a href="#" class="text-white/40 hover:text-white transition-colors"
+              ><i class="fa-brands fa-linkedin-in text-lg"></i
+            ></a>
+            <a href="#" class="text-white/40 hover:text-white transition-colors"
+              ><i class="fa-brands fa-twitter text-lg"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll-reveal with Intersection Observer
+      const revealEls = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+
+      // Cursor-following glow
+      const heroSection = document.getElementById("hero");
+      const heroGlow = document.getElementById("heroGlow");
+      if (heroSection && heroGlow) {
+        heroSection.addEventListener("mousemove", (e) => {
+          const rect = heroSection.getBoundingClientRect();
+          heroGlow.style.left = e.clientX - rect.left + "px";
+          heroGlow.style.top = e.clientY - rect.top + "px";
+          heroGlow.classList.add("active");
+        });
+        heroSection.addEventListener("mouseleave", () => {
+          heroGlow.classList.remove("active");
+        });
+      }
+
+      // Dynamic calendar
+      (function () {
+        const MONTH_NAMES = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        // April 2026 keeps its original specific event days
+        const FIXED_EVENTS = {
+          "2026-3": [3, 7, 9, 10, 15, 17, 21, 24, 27, 30],
+        };
+
+        const today = new Date();
+        const END_YEAR = today.getFullYear();
+        const END_MONTH = 11; // December
+        let viewYear = today.getFullYear();
+        let viewMonth = today.getMonth();
+
+        // Returns a Set of 10 weekday event days spread evenly across the month
+        function getEventDays(year, month) {
+          const key = year + "-" + month;
+          if (FIXED_EVENTS[key]) return new Set(FIXED_EVENTS[key]);
+
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+          const weekdays = [];
+          for (let d = 1; d <= daysInMonth; d++) {
+            const dow = new Date(year, month, d).getDay();
+            if (dow !== 0 && dow !== 6) weekdays.push(d);
+          }
+          const events = new Set();
+          const count = Math.min(10, weekdays.length);
+          for (let i = 0; i < count; i++) {
+            const idx = Math.round((i * (weekdays.length - 1)) / (count - 1));
+            events.add(weekdays[idx]);
+          }
+          return events;
+        }
+
+        function updateButtonStates() {
+          const prevBtn = document.getElementById("cal-prev");
+          const nextBtn = document.getElementById("cal-next");
+          const atStart = viewYear === 2026 && viewMonth === 0;
+          const atEnd = viewYear === END_YEAR && viewMonth === END_MONTH;
+          prevBtn.style.visibility = atStart ? "hidden" : "visible";
+          nextBtn.style.visibility = atEnd ? "hidden" : "visible";
+        }
+
+        function renderCalendar(year, month) {
+          const label = document.getElementById("cal-month-label");
+          const grid = document.getElementById("cal-grid");
+          if (!label || !grid) return;
+
+          label.textContent = MONTH_NAMES[month] + " " + year;
+
+          const eventDays = getEventDays(year, month);
+          const isCurrentMonth =
+            year === today.getFullYear() && month === today.getMonth();
+          const todayDate = today.getDate();
+
+          const firstDow = new Date(year, month, 1).getDay();
+          const leadingBlanks = (firstDow + 6) % 7;
+          const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+          let html = "";
+
+          for (let i = 0; i < leadingBlanks; i++) {
+            html += "<div></div>";
+          }
+
+          for (let d = 1; d <= daysInMonth; d++) {
+            const dow = (leadingBlanks + d - 1) % 7; // 0=Mon..6=Sun
+            const isWeekend = dow === 5 || dow === 6;
+            const hasEvent = eventDays.has(d) && !isWeekend;
+            const isToday = isCurrentMonth && d === todayDate;
+
+            let numClasses = "cal-num";
+            if (hasEvent) numClasses += " cal-num-event";
+            else if (isWeekend) numClasses += " cal-num-dim";
+            if (isToday) numClasses += " cal-num-today";
+
+            html += '<div class="cal-day">';
+            html += '<span class="' + numClasses + '">' + d + "</span>";
+            if (hasEvent) html += '<span class="cal-dot"></span>';
+            html += "</div>";
+          }
+
+          // Always 42 cells (6 rows) — grid-auto-rows keeps height fixed
+          const totalCells = leadingBlanks + daysInMonth;
+          for (let i = 0; i < 42 - totalCells; i++) {
+            html += "<div></div>";
+          }
+
+          grid.innerHTML = html;
+          updateButtonStates();
+        }
+
+        function navigateTo(year, month) {
+          const grid = document.getElementById("cal-grid");
+          grid.style.opacity = "0";
+          setTimeout(function () {
+            renderCalendar(year, month);
+            grid.style.opacity = "1";
+          }, 160);
+        }
+
+        renderCalendar(viewYear, viewMonth);
+
+        // Live clock
+        function updateClock() {
+          var now = new Date();
+          var h = now.getHours();
+          var m = now.getMinutes();
+          var s = now.getSeconds();
+          var ampm = h >= 12 ? "PM" : "AM";
+          h = h % 12 || 12;
+          var el = document.getElementById("cal-time");
+          if (el) {
+            el.textContent =
+              String(h).padStart(2, "0") +
+              ":" +
+              String(m).padStart(2, "0") +
+              ":" +
+              String(s).padStart(2, "0") +
+              " " +
+              ampm;
+          }
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Auto-advance calendar every 4 seconds; wraps back to current month after December
+        setInterval(function () {
+          if (viewYear === END_YEAR && viewMonth === END_MONTH) {
+            viewYear = today.getFullYear();
+            viewMonth = today.getMonth();
+          } else {
+            viewMonth++;
+            if (viewMonth > 11) {
+              viewMonth = 0;
+              viewYear++;
+            }
+          }
+          navigateTo(viewYear, viewMonth);
+        }, 4000);
+
+        document
+          .getElementById("cal-prev")
+          .addEventListener("click", function () {
+            if (viewYear === 2026 && viewMonth === 0) return;
+            viewMonth--;
+            if (viewMonth < 0) {
+              viewMonth = 11;
+              viewYear--;
+            }
+            navigateTo(viewYear, viewMonth);
+          });
+
+        document
+          .getElementById("cal-next")
+          .addEventListener("click", function () {
+            if (viewYear === END_YEAR && viewMonth === END_MONTH) return;
+            viewMonth++;
+            if (viewMonth > 11) {
+              viewMonth = 0;
+              viewYear++;
+            }
+            navigateTo(viewYear, viewMonth);
+          });
+      })();
+
+      // Smooth FAQ accordion
+      document.querySelectorAll(".faq-item").forEach((details) => {
+        const summary = details.querySelector("summary");
+        const answer = details.querySelector(".faq-answer");
+
+        summary.addEventListener("click", (e) => {
+          e.preventDefault();
+
+          if (details.open) {
+            // Animate closed, then remove [open]
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            answer.style.opacity = "1";
+            answer.getBoundingClientRect(); // force reflow
+            answer.style.maxHeight = "0px";
+            answer.style.opacity = "0";
+            answer.addEventListener("transitionend", function handler(ev) {
+              if (ev.propertyName !== "max-height") return;
+              answer.removeEventListener("transitionend", handler);
+              details.removeAttribute("open");
+              answer.style.maxHeight = "";
+              answer.style.opacity = "";
+            });
+          } else {
+            // Add [open], then animate open
+            details.setAttribute("open", "");
+            answer.style.maxHeight = "0px";
+            answer.style.opacity = "0";
+            answer.getBoundingClientRect(); // force reflow
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            answer.style.opacity = "1";
+            answer.addEventListener("transitionend", function handler(ev) {
+              if (ev.propertyName !== "max-height") return;
+              answer.removeEventListener("transitionend", handler);
+              answer.style.maxHeight = "";
+              answer.style.opacity = "";
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
