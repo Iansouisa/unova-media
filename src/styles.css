@@ -23,6 +23,17 @@ h2 {
   letter-spacing: -0.02em;
 }
 
+@media (max-width: 639px) {
+  h2 {
+    font-size: 40px;
+  }
+
+  section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
 .font-serif {
   font-family: "Instrument Serif", serif;
 }
