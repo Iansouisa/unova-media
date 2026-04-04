@@ -7,6 +7,21 @@
     --color-border: #3A3536;
     --color-accent: #D5D9E5;
     --color-accent-glow: rgba(213, 217, 229, 0.10);
+    --color-text: #F5F3F4;
+    --color-primary: #2979FF;
+    --color-cyan: #CCFAF4;
+    --color-lavender: #CCCEF8;
+    --color-green: #CCF8CB;
+    --color-cream: #E2DDD5;
+    --color-pink: #FFCBEF;
+    --color-deep-purple: #1A1A4D;
+    --color-pink-text: #4D1A3D;
+    --color-gold: #F5A623;
+    --color-muted-purple: #5A4A8A;
+    --color-accent-faded: rgba(213, 217, 229, 0.4);
+    --color-accent-active: rgba(213, 217, 229, 0.8);
+    --color-surface-subtle: rgba(213, 217, 229, 0.063);
+    --color-bg-dark-dim: rgba(35, 31, 32, 0.35);
   }
 
   html {

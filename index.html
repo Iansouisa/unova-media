@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./src/output.css" />
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
-  <body class="bg-[#231F20] text-[#F5F3F4] overflow-x-hidden">
+  <body class="bg-(--color-bg-dark) text-(--color-text) overflow-x-hidden">
     <!-- ============================================================
        HEADER
   ============================================================ -->
@@ -25,82 +25,61 @@
       <div
         class="max-w-[1200px] mx-auto px-6 flex items-center justify-between"
       >
-      <a
-      href="/"
-      aria-label="Unova Media home"
-      class="text-2xl"
-      style="font-family: Instrument serif"
-    >
-      <span class="">Unova</span class="font-bold"><span>Media</span>
-    </a>
+        <a
+          href="/"
+          aria-label="Unova Media home"
+          class="text-2xl"
+          style="font-family: Instrument serif"
+        >
+          <span class="font-bold">Unova</span><span>Media</span>
+        </a>
       </div>
     </header>
 
     <!-- ============================================================
        HERO
   ============================================================ -->
-    <section
-      id="hero"
-      class="relative pt-20 text-center min-h-90vh overflow-hidden"
-    >
-      <!-- Background gradient -->
-      <div
-        class="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-        style="background: #231f20"
-      ></div>
+    <section class="py-28">
+      <div class="max-w-[1200px] mx-auto px-6">
+        <!-- Pill badge -->
+        <div
+          class="hero-line hero-line-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-8 w-fit"
+          style="
+            background: rgba(253, 253, 214, 0.12);
+            border: 1px solid rgba(253, 253, 214, 0.3);
+            color: var(--color-cream);
+          "
+        >
+          For B2B SaaS companies
+        </div>
 
-      <!-- Animated gradient blob -->
-      <div class="hero-blob" aria-hidden="true"></div>
-      <!-- Cursor-following glow -->
-      <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
-
-      <div class="relative z-20 mb-16 max-w-5xl mx-auto py-20 px-6">
-        <div class="relative z-10 text-center">
-          <!-- Pill badge -->
-          <div
-            class="hero-line hero-line-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium mb-8"
-            style="
-              background: rgba(253, 253, 214, 0.12);
-              border: 1px solid rgba(253, 253, 214, 0.3);
-              color: #fdfdd6;
-            "
+        <h1 class="mb-6">
+          <span class="hero-line hero-line-2 block">Your calendar,</span>
+          <span class="hero-line hero-line-3 block"
+            >full of the right people.</span
           >
-            For B2B SaaS companies
-          </div>
+        </h1>
 
-          <h1
-            class="text-5xl md:text-[5.5rem] leading-[1.05] tracking-tighter mb-6 text-[#F5F3F4]"
+        <p
+          class="hero-line hero-line-4 text-white/60 max-w-md text-lg mb-10 leading-relaxed"
+        >
+          We get you 10 qualified demos a month in 30 days,<br />or you pay
+          nothing.
+        </p>
+
+        <div class="hero-line hero-line-5 flex flex-col items-start gap-3">
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
           >
-            <span class="hero-line hero-line-2 block">Your calendar,</span>
-            <span class="hero-line hero-line-3 block"
-              >full of the right people.</span
+            Book a free strategy call
+            <span
+              class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
             >
-          </h1>
-
-          <p
-            class="hero-line hero-line-4 text-white/60 font-normal max-w-xl mx-auto text-lg mb-10 leading-relaxed"
-          >
-            We get you 10 qualified demos a month in 30 days,<br />or you pay
-            nothing.
-          </p>
-
-          <div class="hero-line hero-line-5 flex flex-col items-center gap-3">
-            <a
-              href="#contact"
-              class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
-            >
-              Book a free strategy call
-              <span
-                class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
-              >
-                <i
-                  class="fa-solid fa-arrow-right text-white text-[0.65rem]"
-                ></i>
-              </span>
-            </a>
-            <span class="text-xs text-white/40">No commitment.</span>
-          </div>
+              <i class="fa-solid fa-arrow-right text-white text-[0.65rem]"></i>
+            </span>
+          </a>
+          <span class="text-xs text-white/40">No commitment.</span>
         </div>
       </div>
     </section>
@@ -116,22 +95,24 @@
           <!-- Left: label + heading -->
           <div class="reveal">
             <p
-              class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+              class="text-xs font-medium text-(--color-accent)/60 tracking-widest uppercase mb-5 overline-label"
             >
               The problem
             </p>
-            <h2 class="leading-[1.08] tracking-tighter text-[#F5F3F4]">
+            <h2 class="tracking-tighter">
               You have a product that works. Getting in front of buyers is the
               hard part.
             </h2>
           </div>
 
           <!-- Right: bullet list -->
-          <div class="flex flex-col gap-0">
+          <div class="flex flex-col">
             <div
-              class="flex gap-6 py-8 border-t border-[#3A3536] reveal reveal-delay-1"
+              class="flex gap-6 py-8 border-t border-(--color-border) reveal reveal-delay-1"
             >
-              <span class="mt-1 shrink-0 text-lg" style="color: #ffcbef"
+              <span
+                class="mt-1 shrink-0 text-lg"
+                style="color: var(--color-pink)"
                 >—</span
               >
               <p class="text-white/70 text-lg leading-relaxed">
@@ -140,9 +121,11 @@
               </p>
             </div>
             <div
-              class="flex gap-6 py-8 border-t border-[#3A3536] reveal reveal-delay-2"
+              class="flex gap-6 py-8 border-t border-(--color-border) reveal reveal-delay-2"
             >
-              <span class="mt-1 shrink-0 text-lg" style="color: #ccfaf4"
+              <span
+                class="mt-1 shrink-0 text-lg"
+                style="color: var(--color-cyan)"
                 >—</span
               >
               <p class="text-white/70 text-lg leading-relaxed">
@@ -151,9 +134,11 @@
               </p>
             </div>
             <div
-              class="flex gap-6 py-8 border-t border-b border-[#3A3536] reveal reveal-delay-3"
+              class="flex gap-6 py-8 border-t border-b border-(--color-border) reveal reveal-delay-3"
             >
-              <span class="mt-1 shrink-0 text-lg" style="color: #fdfdd6"
+              <span
+                class="mt-1 shrink-0 text-lg"
+                style="color: var(--color-cream)"
                 >—</span
               >
               <p class="text-white/70 text-lg leading-relaxed">
@@ -171,16 +156,16 @@
   ============================================================ -->
     <section
       id="process"
-      class="py-28 bg-linear-to-b from-[#2C2829] to-transparent rounded-4xl mx-4 md:mx-8 mb-11"
+      class="py-28 bg-linear-to-b from-(--color-bg-card) to-transparent rounded-4xl mx-4 md:mx-8 mb-11"
     >
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="mb-16 reveal">
           <p
-            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+            class="text-xs font-medium text-(--color-accent)/60 tracking-widest uppercase mb-5 overline-label"
           >
             What to expect
           </p>
-          <h2 class="leading-[1.1] tracking-tighter text-white">
+          <h2 class="leading-[1.1] tracking-tighter">
             One call to start.<br />
             Demos in your calendar within two weeks.
           </h2>
@@ -188,11 +173,11 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div
-            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-1"
+            class="bg-(--color-bg-dark) border border-(--color-border) p-8 rounded-2xl reveal reveal-delay-1"
           >
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-6 rounded-md"
-              style="background: #ccfaf4; color: #1a3d38"
+              style="background: var(--color-cyan); color: #1a3d38"
               >Week 1</span
             >
             <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
@@ -205,11 +190,14 @@
           </div>
 
           <div
-            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-2"
+            class="bg-(--color-bg-dark) border border-(--color-border) p-8 rounded-2xl reveal reveal-delay-2"
           >
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-6 rounded-md"
-              style="background: #cccef8; color: #1a1a4d"
+              style="
+                background: var(--color-lavender);
+                color: var(--color-deep-purple);
+              "
               >Week 2</span
             >
             <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
@@ -222,11 +210,11 @@
           </div>
 
           <div
-            class="bg-[#231F20] border border-[#3A3536] p-8 rounded-2xl reveal reveal-delay-3"
+            class="bg-(--color-bg-dark) border border-(--color-border) p-8 rounded-2xl reveal reveal-delay-3"
           >
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-6 rounded-md"
-              style="background: #ccf8cb; color: #1a3d1a"
+              style="background: var(--color-green); color: #1a3d1a"
               >Weeks 3–4</span
             >
             <h3 class="text-2xl font-semibold text-white mb-3 leading-snug">
@@ -240,17 +228,22 @@
 
           <div
             class="border p-8 rounded-2xl reveal reveal-delay-4"
-            style="background: #fdfdd6; border-color: #e8e69a"
+            style="background: var(--color-lavender); border-color: #b0b3f0"
           >
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-6 rounded-md"
-              style="background: #fdfdd6; color: #3d3a00"
+              style="
+                background: rgba(255, 255, 255, 0.35);
+                color: var(--color-deep-purple);
+              "
               >Ongoing</span
             >
-            <h3 class="text-2xl font-semibold text-[#231F20] mb-3 leading-snug">
+            <h3
+              class="text-2xl font-semibold text-(--color-deep-purple) mb-3 leading-snug"
+            >
               A weekly report. Nothing else to manage.
             </h3>
-            <p class="text-sm text-[#231F20]/60 leading-relaxed">
+            <p class="text-sm text-(--color-deep-purple)/60 leading-relaxed">
               You'll always know where things stand. Beyond that, it runs
               without you.
             </p>
@@ -265,7 +258,7 @@
     <section
       id="guarantee"
       class="relative py-28 overflow-hidden"
-      style="background-color: #d5d9e5"
+      style="background-color: var(--color-cream)"
     >
       <!-- Glow orb behind calendar -->
       <div
@@ -293,32 +286,17 @@
         <div
           class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center"
         >
-          <!-- Left: label + heading + description -->
-          <div class="reveal">
-            <p
-              class="text-xs font-medium text-[#231F20]/50 tracking-widest uppercase mb-5 overline-label"
-            >
-              The guarantee
-            </p>
-            <h2 class="leading-[1.08] tracking-tighter mb-6 text-[#231F20]">
-              10 qualified demos a month in 30 days, or you pay nothing.
-            </h2>
-            <p class="text-[#231F20]/70 text-lg leading-relaxed">
-              We only work with founders we're confident we can deliver for. If
-              we don't hit the number, we don't stop and we don't invoice. We
-              keep going until we do.
-            </p>
-          </div>
-
-          <!-- Right: calendar widget -->
-          <div class="flex justify-center md:justify-end reveal reveal-delay-2">
+          <!-- Left: calendar widget -->
+          <div
+            class="flex justify-center md:justify-start reveal reveal-delay-2 order-2 md:order-1"
+          >
             <div class="glass-card rounded-2xl p-6 w-full max-w-[360px]">
               <!-- Calendar header -->
               <div class="flex items-center justify-between mb-5">
                 <div class="flex items-center gap-1.5">
                   <span
                     id="cal-month-label"
-                    class="font-bold text-[#231F20] text-lg leading-none"
+                    class="font-bold text-(--color-bg-dark) text-lg leading-none"
                     >Apr 2026</span
                   >
                   <svg
@@ -327,10 +305,11 @@
                     viewBox="0 0 14 14"
                     fill="none"
                     aria-hidden="true"
+                    class="text-(--color-primary)"
                   >
                     <path
                       d="M5 3l4 4-4 4"
-                      stroke="#2979FF"
+                      stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
@@ -341,7 +320,7 @@
                   <button
                     id="cal-prev"
                     aria-label="Previous month"
-                    class="text-[#2979FF]"
+                    class="text-(--color-primary)"
                   >
                     <svg
                       width="16"
@@ -352,7 +331,7 @@
                     >
                       <path
                         d="M10 3L6 8l4 5"
-                        stroke="#2979FF"
+                        stroke="currentColor"
                         stroke-width="1.75"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -362,7 +341,7 @@
                   <button
                     id="cal-next"
                     aria-label="Next month"
-                    class="text-[#2979FF]"
+                    class="text-(--color-primary)"
                   >
                     <svg
                       width="16"
@@ -373,7 +352,7 @@
                     >
                       <path
                         d="M6 3l4 5-4 5"
-                        stroke="#2979FF"
+                        stroke="currentColor"
                         stroke-width="1.75"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -386,31 +365,31 @@
               <!-- Day-of-week headers -->
               <div class="grid grid-cols-7 mb-1">
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >MON</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >TUE</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >WED</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >THU</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >FRI</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >SAT</span
                 >
                 <span
-                  class="text-[10px] text-[#231F20]/40 text-center uppercase font-medium py-1"
+                  class="text-[10px] text-(--color-bg-dark)/40 text-center uppercase font-medium py-1"
                   >SUN</span
                 >
               </div>
@@ -421,17 +400,49 @@
 
               <!-- Time row -->
               <div
-                class="flex items-center justify-between mt-4 pt-4 border-t border-[#231F20]/10"
+                class="flex items-center justify-between mt-4 pt-4 border-t border-(--color-bg-dark)/10"
               >
-                <span class="font-semibold text-[#231F20] text-sm">Time</span>
+                <span class="font-semibold text-(--color-bg-dark) text-sm"
+                  >Time</span
+                >
                 <span
                   id="cal-time"
-                  class="text-[#231F20] text-sm font-semibold px-4 py-1.5 rounded-xl"
+                  class="text-(--color-bg-dark) text-sm font-semibold px-4 py-1.5 rounded-xl"
                   style="background: rgba(0, 0, 0, 0.05)"
                   >09:00:00 AM</span
                 >
               </div>
             </div>
+          </div>
+
+          <!-- Right: label + heading + description -->
+          <div class="reveal order-1 md:order-2">
+            <p
+              class="text-xs font-medium text-(--color-bg-dark)/50 tracking-widest uppercase mb-5 overline-label"
+            >
+              The guarantee
+            </p>
+            <h2 class="tracking-tighter mb-6 text-(--color-bg-dark)">
+              10 qualified demos a month in 30 days, or you pay nothing.
+            </h2>
+            <p class="text-(--color-bg-dark)/70 text-lg leading-relaxed mb-8">
+              We only work with founders we're confident we can deliver for. If
+              we don't hit the number, we don't stop and we don't invoice. We
+              keep going until we do.
+            </p>
+            <a
+              href="#contact"
+              class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
+            >
+              Book a strategy call
+              <span
+                class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center"
+              >
+                <i
+                  class="fa-solid fa-arrow-right text-white text-[0.65rem]"
+                ></i>
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -443,20 +454,22 @@
     <section
       id="who"
       class="relative py-28 overflow-hidden"
-      style="background-color: #d5d9e5"
+      style="background-color: var(--color-cream)"
     >
-      <div class="relative z-10 max-w-[1200px] mx-auto px-6">
+      <div class="max-w-[1200px] mx-auto px-6">
         <div class="max-w-4xl">
           <p
-            class="text-xs font-medium text-[#231F20]/50 tracking-widest uppercase mb-5 overline-label reveal"
+            class="text-xs font-medium text-(--color-bg-dark)/50 tracking-widest uppercase mb-5 overline-label reveal"
           >
             Who it's for
           </p>
-          <h2 class="leading-[1.1] tracking-tighter mb-6 text-[#231F20] reveal">
+          <h2
+            class="leading-[1.1] tracking-tighter mb-6 text-(--color-bg-dark) reveal"
+          >
             This works for a specific kind of founder.
           </h2>
           <p
-            class="text-[#231F20]/70 text-lg mb-16 leading-relaxed max-w-2xl reveal"
+            class="text-(--color-bg-dark)/70 text-lg mb-16 leading-relaxed max-w-2xl reveal"
           >
             We're selective about who we work with — because the guarantee only
             holds when the right conditions are in place.
@@ -467,10 +480,13 @@
           <div class="glass-card p-8 rounded-2xl reveal reveal-delay-1">
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-3 rounded-md"
-              style="background: #ffcbef; color: #4d1a3d"
+              style="
+                background: var(--color-pink);
+                color: var(--color-pink-text);
+              "
               >Stage</span
             >
-            <p class="text-[#231F20] leading-relaxed">
+            <p class="text-(--color-bg-dark) leading-relaxed">
               Early revenue. $1k–$10k MRR. You've closed real customers and the
               product works.
             </p>
@@ -479,10 +495,13 @@
           <div class="glass-card p-8 rounded-2xl reveal reveal-delay-2">
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-3 rounded-md"
-              style="background: #cccef8; color: #1a1a4d"
+              style="
+                background: var(--color-lavender);
+                color: var(--color-deep-purple);
+              "
               >Product</span
             >
-            <p class="text-[#231F20] leading-relaxed">
+            <p class="text-(--color-bg-dark) leading-relaxed">
               B2B SaaS that sells to business buyers and needs a conversation to
               close.
             </p>
@@ -491,10 +510,10 @@
           <div class="glass-card p-8 rounded-2xl reveal reveal-delay-3">
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-3 rounded-md"
-              style="background: #fdfdd6; color: #3d3a00"
+              style="background: var(--color-cyan); color: #1a3d38"
               >Sales</span
             >
-            <p class="text-[#231F20] leading-relaxed">
+            <p class="text-(--color-bg-dark) leading-relaxed">
               Founder-led. You run the demos yourself and you know you can close
               when you're in the room.
             </p>
@@ -503,17 +522,17 @@
           <div class="glass-card p-8 rounded-2xl reveal reveal-delay-4">
             <span
               class="inline-block text-xs font-semibold px-3 py-1 mb-3 rounded-md"
-              style="background: #ffcbef; color: #4d1a3d"
+              style="background: var(--color-green); color: #1a3d1a"
               >Deal size</span
             >
-            <p class="text-[#231F20] leading-relaxed">
+            <p class="text-(--color-bg-dark) leading-relaxed">
               ACV of roughly €2k or more — enough that a booked demo genuinely
               moves the needle.
             </p>
           </div>
         </div>
 
-        <p class="text-sm text-[#231F20]/50 italic max-w-xl reveal">
+        <p class="text-sm text-(--color-bg-dark)/50 italic max-w-xl reveal">
           If you're pre-revenue, fully self-serve, or not yet doing founder-led
           sales — this probably isn't the right fit yet.
         </p>
@@ -527,13 +546,11 @@
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="max-w-3xl">
           <p
-            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label reveal"
+            class="text-xs font-medium text-(--color-accent)/60 tracking-widest uppercase mb-5 overline-label reveal"
           >
             Why us
           </p>
-          <h2
-            class="leading-[1.1] tracking-tighter mb-10 text-[#F5F3F4] reveal"
-          >
+          <h2 class="leading-[1.1] tracking-tighter mb-10 reveal">
             We know this space from the inside.
           </h2>
           <div class="flex flex-col gap-6">
@@ -559,16 +576,16 @@
   ============================================================ -->
     <section
       id="reviews"
-      class="py-28 bg-linear-to-b from-[#2C2829] to-transparent rounded-4xl mx-4 md:mx-8"
+      class="py-28 bg-linear-to-b from-(--color-bg-card) to-transparent rounded-4xl mx-4 md:mx-8"
     >
       <div class="max-w-[1200px] mx-auto px-6">
         <div class="mb-12 max-w-4xl reveal">
           <p
-            class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
+            class="text-xs font-medium text-(--color-accent)/60 tracking-widest uppercase mb-5 overline-label"
           >
             What people say
           </p>
-          <h2 class="leading-[1.1] tracking-tighter mb-4 text-white">
+          <h2 class="leading-[1.1] tracking-tighter mb-4">
             Trusted by founders who needed things done right.
           </h2>
           <p class="text-white/40 text-sm leading-relaxed max-w-lg">
@@ -580,15 +597,15 @@
 
         <div class="flex flex-col md:flex-row gap-4">
           <div
-            class="bg-[#231F20] border border-[#3A3536] overflow-hidden text-left w-full rounded-2xl reveal reveal-delay-1"
+            class="bg-(--color-bg-dark) border border-(--color-border) overflow-hidden text-left w-full rounded-2xl reveal reveal-delay-1"
           >
             <div class="p-8 md:p-10">
               <div class="flex gap-1 mb-5">
-                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
-                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
-                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
-                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
-                <i class="fa-solid fa-star text-[#f5a623] text-sm"></i>
+                <i class="fa-solid fa-star text-(--color-gold) text-sm"></i>
+                <i class="fa-solid fa-star text-(--color-gold) text-sm"></i>
+                <i class="fa-solid fa-star text-(--color-gold) text-sm"></i>
+                <i class="fa-solid fa-star text-(--color-gold) text-sm"></i>
+                <i class="fa-solid fa-star text-(--color-gold) text-sm"></i>
               </div>
               <p class="text-sm text-white/60 leading-relaxed mb-8 max-w-sm">
                 [INSERT CLIENT REVIEW]
@@ -603,7 +620,7 @@
                 </div>
                 <span
                   class="text-6xl font-bold leading-none select-none"
-                  style="color: #ccfaf4"
+                  style="color: var(--color-cyan)"
                   >"</span
                 >
               </div>
@@ -612,19 +629,29 @@
 
           <div
             class="overflow-hidden text-left w-full rounded-2xl reveal reveal-delay-2"
-            style="background: #cccef8; border: 1px solid #ababd8"
+            style="background: var(--color-lavender); border: 1px solid #ababd8"
           >
             <div class="p-8 md:p-10">
               <div class="flex gap-1 mb-5">
-                <i class="fa-solid fa-star text-[#5a4a8a] text-sm"></i>
-                <i class="fa-solid fa-star text-[#5a4a8a] text-sm"></i>
-                <i class="fa-solid fa-star text-[#5a4a8a] text-sm"></i>
-                <i class="fa-solid fa-star text-[#5a4a8a] text-sm"></i>
-                <i class="fa-solid fa-star text-[#5a4a8a] text-sm"></i>
+                <i
+                  class="fa-solid fa-star text-(--color-muted-purple) text-sm"
+                ></i>
+                <i
+                  class="fa-solid fa-star text-(--color-muted-purple) text-sm"
+                ></i>
+                <i
+                  class="fa-solid fa-star text-(--color-muted-purple) text-sm"
+                ></i>
+                <i
+                  class="fa-solid fa-star text-(--color-muted-purple) text-sm"
+                ></i>
+                <i
+                  class="fa-solid fa-star text-(--color-muted-purple) text-sm"
+                ></i>
               </div>
               <p
                 class="text-sm leading-relaxed mb-8 max-w-sm"
-                style="color: #1a1a4d"
+                style="color: var(--color-deep-purple)"
               >
                 [INSERT CLIENT REVIEW]
               </p>
@@ -632,7 +659,7 @@
                 <div>
                   <span
                     class="text-sm font-medium block leading-tight"
-                    style="color: #231f20"
+                    style="color: var(--color-bg-dark)"
                     >[INSERT NAME]</span
                   >
                   <span class="text-xs" style="color: rgba(35, 31, 32, 0.5)"
@@ -641,7 +668,7 @@
                 </div>
                 <span
                   class="text-6xl font-bold leading-none select-none"
-                  style="color: #5a4a8a"
+                  style="color: var(--color-muted-purple)"
                   >"</span
                 >
               </div>
@@ -657,32 +684,20 @@
     <section id="faq" class="py-28">
       <div class="max-w-[1200px] mx-auto px-6">
         <div
-          class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-10 md:gap-20 items-start"
+          class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-start"
         >
-          <!-- Left: label + heading -->
-          <div class="md:sticky md:top-24 reveal my-auto">
-            <p
-              class="text-xs font-medium text-[#D5D9E5]/60 tracking-widest uppercase mb-5 overline-label"
-            >
-              Questions
-            </p>
-            <h2 class="leading-[1.08] tracking-tighter text-[#F5F3F4]">
-              The things people usually ask.
-            </h2>
-          </div>
-
-          <!-- Right: FAQ items -->
-          <div>
+          <!-- Left: FAQ items -->
+          <div class="order-2 md:order-1">
             <details
-              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-1"
+              class="faq-item py-8 border-t border-(--color-border) reveal reveal-delay-1"
             >
               <summary>
-                <span class="font-semibold text-[#F5F3F4] text-lg"
+                <span class="font-semibold text-(--color-text) text-lg"
                   >What counts as a "qualified demo"?</span
                 >
                 <svg
                   class="faq-chevron"
-                  style="color: #ffcbef"
+                  style="color: var(--color-pink)"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -707,15 +722,15 @@
             </details>
 
             <details
-              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-2"
+              class="faq-item py-8 border-t border-(--color-border) reveal reveal-delay-2"
             >
               <summary>
-                <span class="font-semibold text-[#F5F3F4] text-lg"
+                <span class="font-semibold text-(--color-text) text-lg"
                   >What if I don't get 10 demos in 30 days?</span
                 >
                 <svg
                   class="faq-chevron"
-                  style="color: #ccfaf4"
+                  style="color: var(--color-cyan)"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -739,15 +754,15 @@
             </details>
 
             <details
-              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-3"
+              class="faq-item py-8 border-t border-(--color-border) reveal reveal-delay-3"
             >
               <summary>
-                <span class="font-semibold text-[#F5F3F4] text-lg"
+                <span class="font-semibold text-(--color-text) text-lg"
                   >How much time does this take from me?</span
                 >
                 <svg
                   class="faq-chevron"
-                  style="color: #fdfdd6"
+                  style="color: var(--color-cream)"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -771,15 +786,15 @@
             </details>
 
             <details
-              class="faq-item py-8 border-t border-[#3A3536] reveal reveal-delay-4"
+              class="faq-item py-8 border-t border-(--color-border) reveal reveal-delay-4"
             >
               <summary>
-                <span class="font-semibold text-[#F5F3F4] text-lg"
+                <span class="font-semibold text-(--color-text) text-lg"
                   >How quickly do demos start appearing?</span
                 >
                 <svg
                   class="faq-chevron"
-                  style="color: #ccf8cb"
+                  style="color: var(--color-green)"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -803,15 +818,15 @@
             </details>
 
             <details
-              class="faq-item py-8 border-t border-b border-[#3A3536] reveal"
+              class="faq-item py-8 border-t border-b border-(--color-border) reveal"
             >
               <summary>
-                <span class="font-semibold text-[#F5F3F4] text-lg"
+                <span class="font-semibold text-(--color-text) text-lg"
                   >Do I need anything set up on my end?</span
                 >
                 <svg
                   class="faq-chevron"
-                  style="color: #cccef8"
+                  style="color: var(--color-lavender)"
                   viewBox="0 0 20 20"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -835,42 +850,17 @@
               </div>
             </details>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============================================================
-       FINAL CTA
-  ============================================================ -->
-    <section id="contact" class="relative py-28 overflow-x-hidden">
-      <!-- Bottom gradient -->
-      <div
-        class="pointer-events-none absolute bottom-0 left-0 w-full h-[500px]"
-        aria-hidden="true"
-        style="
-          background: linear-gradient(
-            0deg,
-            rgba(213, 217, 229, 0.063) 0%,
-            transparent 100%
-          );
-        "
-      ></div>
-
-      <div
-        class="relative max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between gap-16"
-      >
-        <div class="relative flex-1 px-6 md:px-10 reveal">
-          <div class="relative z-10 text-center md:text-left">
-            <h2 class="tracking-tighter leading-[1.05] mb-6 text-[#F5F3F4]">
-              Ready to fill<br />
-              your calendar?
-            </h2>
+          <!-- Right: label + heading -->
+          <div class="md:sticky md:top-24 reveal my-auto order-1 md:order-2">
             <p
-              class="text-white/60 leading-relaxed max-w-md mx-auto md:mx-0 mb-8"
+              class="text-xs font-medium text-(--color-accent)/60 tracking-widest uppercase mb-5 overline-label"
             >
-              Book a free 30-minute call. We'll work out if it's a good fit —
-              and if it is, we can usually get started within the week.
+              Questions
             </p>
+            <h2 class="tracking-tighter mb-8">
+              The things people usually ask.
+            </h2>
             <a
               href="#contact"
               class="inline-flex items-center gap-3 px-6 py-3 btn-primary text-white text-sm font-medium"
@@ -886,10 +876,45 @@
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       FINAL CTA
+  ============================================================ -->
+    <section id="contact" class="relative py-28 overflow-x-hidden">
+      <!-- Bottom gradient -->
+      <div
+        class="pointer-events-none absolute bottom-0 left-0 w-full h-[500px]"
+        aria-hidden="true"
+        style="
+          background: linear-gradient(
+            0deg,
+            var(--color-surface-subtle) 0%,
+            transparent 100%
+          );
+        "
+      ></div>
+
+      <div
+        class="relative max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between gap-16"
+      >
+        <div class="relative flex-1 px-6 md:px-10 reveal">
+          <div class="relative z-10 text-center md:text-left">
+            <h2 class="tracking-tighter leading-[1.05] mb-6">
+              Ready to fill<br />
+              your calendar?
+            </h2>
+            <p class="text-white/60 leading-relaxed max-w-md mx-auto md:mx-0">
+              Book a free 30-minute call. We'll work out if it's a good fit —
+              and if it is, we can usually get started within the week.
+            </p>
+          </div>
+        </div>
 
         <!-- Cal.com embed -->
         <div
-          class="w-full md:w-[520px] shrink-0 overflow-hidden border border-[#3A3536] bg-[#2C2829] shadow-sm rounded-2xl"
+          class="w-full md:w-[520px] shrink-0 overflow-hidden border border-(--color-border) bg-(--color-bg-card) shadow-sm rounded-2xl"
         >
           <div
             style="width: 100%; height: 760px; overflow: hidden"
@@ -904,11 +929,11 @@
   ============================================================ -->
     <footer
       class="pt-20 overflow-hidden"
-      style="background: rgba(213, 217, 229, 0.063)"
+      style="background: var(--color-surface-subtle)"
     >
       <div class="max-w-[1200px] mx-auto px-6">
         <div
-          class="flex flex-col sm:flex-row items-end sm:items-end justify-between gap-4 pb-10"
+          class="flex flex-col sm:flex-row items-end justify-between gap-4 pb-10"
         >
           <div>
             <a
@@ -917,7 +942,7 @@
               class="text-4xl"
               style="font-family: Instrument serif"
             >
-              <span class="">Unova</span class="font-bold"><span>Media</span>
+              <span class="font-bold">Unova</span><span>Media</span>
             </a>
             <p class="text-xs text-white/40 mt-4">
               &copy; 2026 Unova Media. All rights reserved.

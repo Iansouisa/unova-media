@@ -32,7 +32,6 @@ h2 {
   background-image:
     linear-gradient(rgba(213, 217, 229, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(213, 217, 229, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
   background-position: center top;
   position: relative;
 }
@@ -42,6 +41,21 @@ h2 {
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grain texture overlay */
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
   pointer-events: none;
   z-index: 0;
 }
@@ -162,16 +176,33 @@ h2 {
 
 /* Primary CTA button */
 .btn-primary {
-  background: linear-gradient(135deg, #2979ff 0%, #1a5fd4 100%);
+  background: radial-gradient(
+    120% 120% at 15% 20%,
+    #7eb3ff 0%,
+    #2979ff 45%,
+    #1a5fd4 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
+  box-shadow:
+    0 4px 24px rgba(41, 121, 255, 0.35),
+    inset -1px -1px 3px #1a5fd4,
+    inset 1px 1px 4px rgba(255, 255, 255, 0.35);
   transition:
     transform 0.16s ease-out,
     box-shadow 0.16s ease-out;
-  box-shadow: 0 4px 24px rgba(41, 121, 255, 0.35);
 }
 .btn-primary:hover {
-  background: linear-gradient(135deg, #4d94ff 0%, #2979ff 100%);
-  box-shadow: 0 6px 32px rgba(41, 121, 255, 0.5);
+  background: radial-gradient(
+    120% 120% at 15% 20%,
+    #99c2ff 0%,
+    #4d94ff 45%,
+    #2979ff 100%
+  );
+  box-shadow:
+    0 6px 32px rgba(41, 121, 255, 0.5),
+    inset -1px -1px 3px #2062cc,
+    inset 1px 1px 4px rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
 }
 
@@ -191,14 +222,14 @@ h2 {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  color: rgba(213, 217, 229, 0.4);
+  color: var(--color-accent-faded);
   transition:
     transform 0.3s ease,
     color 0.3s ease;
 }
 .faq-item[open] .faq-chevron {
   transform: rotate(180deg);
-  color: rgba(213, 217, 229, 0.8);
+  color: var(--color-accent-active);
 }
 .faq-answer {
   overflow: hidden;
@@ -217,16 +248,16 @@ h2 {
 .glass-card {
   background: radial-gradient(
     120% 120% at 10% 15%,
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0.25) 35%,
-    rgba(255, 255, 255, 0.08) 70%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(255, 255, 255, 0.6) 35%,
+    rgba(255, 255, 255, 0.3) 70%,
+    rgba(255, 255, 255, 0.12) 100%
   );
 
-  backdrop-filter: blur(18px) saturate(1.6);
-  -webkit-backdrop-filter: blur(18px) saturate(1.6);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
 
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.6);
 
   box-shadow:
     0 40px 16px rgba(0, 0, 0, 0.06),
@@ -255,24 +286,24 @@ h2 {
   justify-content: center;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #231f20;
+  color: var(--color-bg-dark);
   border-radius: 9999px;
 }
 .cal-num-event {
-  background: #2979ff;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-text);
 }
 .cal-num-dim {
-  color: rgba(35, 31, 32, 0.35);
+  color: var(--color-bg-dark-dim);
 }
 .cal-dot {
   width: 5px;
   height: 5px;
   border-radius: 9999px;
-  background: #2979ff;
+  background: var(--color-primary);
 }
 .cal-num-today {
-  box-shadow: 0 0 0 2px #90caf9;
+  box-shadow: 0 0 0 2px #00000020;
 }
 #cal-grid {
   transition: opacity 160ms ease;
