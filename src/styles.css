@@ -104,6 +104,17 @@ h2 {
   transition-delay: 0.4s;
 }
 
+/* "Who it's for" cards — slower, more spread stagger */
+#who .glass-card.reveal {
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+}
+#who .glass-card.reveal-delay-1 { transition-delay: 0.10s; }
+#who .glass-card.reveal-delay-2 { transition-delay: 0.30s; }
+#who .glass-card.reveal-delay-3 { transition-delay: 0.50s; }
+#who .glass-card.reveal-delay-4 { transition-delay: 0.70s; }
+
 /* 2. Hero text entrance */
 .hero-line {
   opacity: 0;
