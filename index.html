@@ -22,6 +22,11 @@
     <script type="module" src="/src/main.js"></script>
   </head>
   <body>
+    <a href="#contact" id="sticky-cta" class="sticky-cta">
+      Book a free call
+      <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+
     <header class="container-x">
       <nav
         class="py-6 flex justify-between items-center absolute top-0 left-0 right-0 z-10 px-6 max-w-[1200px] mx-auto"
@@ -29,17 +34,11 @@
         <a href="/" class="font-serif text-[22px] -tracking-[0.01em]"
           ><strong class="font-bold">Unova</strong>Media</a
         >
-        <a
-          href="#contact"
-          class="text-[13px] font-medium px-[18px] py-2.5 border border-bordr rounded-full bg-accent/[0.063] hover:bg-accent/10 hover:border-accent/40 transition-all"
-          >Book a call</a
-        >
       </nav>
     </header>
 
     <!-- HERO -->
     <section class="relative pt-30 pb-40 overflow-hidden">
-      <div class="hero-blob"></div>
       <div class="container-x">
         <span class="hero-badge"
           ><span class="dot"></span> For kitchen &amp; bath remodelers</span
@@ -48,10 +47,10 @@
           <span class="block">A calendar full of</span>
           <span class="block"
             >homeowners
-            <em class="text-accent font-light">ready to remodel.</em></span
+            <em class="text-primary font-light">ready to remodel.</em></span
           >
         </h1>
-        <p class="text-lg leading-relaxed text-white/70 max-w-[52ch] mb-10">
+        <p class="text-lg leading-relaxed text-bgdark/60 max-w-[52ch] mb-10">
           We put 10 qualified estimate appointments on your calendar in the next
           30 days, or you don't pay a cent.
         </p>
@@ -134,7 +133,9 @@
               area. Not tire-kickers. People with a project and a budget.
             </p>
           </div>
-          <div class="process-card reveal sm:col-span-2 md:col-span-1">
+          <div
+            class="process-card reveal sm:col-span-2 md:col-span-1 self-start"
+          >
             <span class="tag tag-green">Weeks 3–4</span>
             <h3>Estimates land in your calendar.</h3>
             <p>
@@ -143,80 +144,76 @@
             </p>
           </div>
           <div
-            class="process-card reveal sm:col-span-2 md:col-span-1"
-            style="background-image: url(./assets/kitchen.webp)"
+            class="reveal sm:col-span-2 md:col-span-1 rounded-2xl min-h-[260px] md:min-h-0"
+            style="
+              background-image: url(&quot;/images/kitchen.jpg&quot;);
+              background-size: cover;
+              background-position: center;
+            "
           ></div>
         </div>
       </div>
     </section>
 
-    <!-- GUARANTEE -->
-    <section class="section-y light-section">
-      <div class="container-x">
-        <div class="max-w-[860px]">
-          <h2>
-            10 qualified estimate appointments in 30 days,
-            <em>or you don't pay.</em>
-          </h2>
-          <p
-            class="mt-6 mb-8 text-lg leading-relaxed max-w-[60ch] text-bgdark/75"
-          >
-            We only take on remodelers we're confident we can deliver for. If we
-            don't hit the number, we don't stop and we don't invoice. We keep
-            going until we do.
-          </p>
-          <a href="#contact" class="btn-primary">
-            Book a free strategy call
-            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- REVIEWS -->
-    <section class="light-section pb-28" style="padding-top: 0">
+    <section class="dark-section py-28">
       <div class="container-x">
-        <h2 class="reveal">Remodelers we've filled the calendar for.</h2>
+        <div class="grid md:grid-cols-[1fr_1.35fr] gap-10 items-stretch">
+          <!-- Left: stat card -->
+          <div class="flex flex-col gap-8">
+            <div
+              class="reveal rounded-2xl"
+              style="
+                flex: 1;
+                min-height: 320px;
+                background-image: url(&quot;/images/kitchen.jpg&quot;);
+                background-size: cover;
+                background-position: center;
+              "
+            ></div>
+            <div class="reveal">
+              <p
+                class="text-lg leading-relaxed mb-6"
+                style="color: rgba(245, 243, 244, 0.55)"
+              >
+                From an empty pipeline to a booked-out schedule in under 30
+                days. We work until the number is hit.
+              </p>
+              <a href="#contact" class="btn-primary">
+                Book a free strategy call
+                <span class="arrow"
+                  ><i class="fa-solid fa-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+          </div>
 
-        <div class="grid md:grid-cols-3 gap-5 mt-12">
-          <div class="review glass-card fit-card reveal">
-            <div class="quote">"</div>
-            <div class="stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i>
+          <!-- Right: headline + review card -->
+          <div class="flex flex-col gap-8">
+            <div class="reveal">
+              <h2>Hear from a client.</h2>
             </div>
-            <p class="body">
-              We hit 12 estimates in the first month. Three closed in week one.
-              I stopped worrying about where the next job was coming from.
-            </p>
-            <div class="who">Marcus R. — Heritage Kitchen &amp; Bath</div>
-          </div>
-          <div class="review glass-card fit-card reveal">
-            <div class="quote">"</div>
-            <div class="stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i>
+            <div
+              class="review glass-card fit-card reveal flex flex-col gap-4"
+              style="flex: 1"
+            >
+              <div class="quote">"</div>
+              <div class="stars">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
+                ><i class="fa-solid fa-star"></i>
+              </div>
+              <p class="body">
+                I am really satisfied with how our collaboration went. The
+                communication was fast, clear, and professional throughout. What
+                made the real difference is that you not only met my
+                expectations but actually exceeded them, by contributing your
+                own ideas while always being open to mine.<br /><br />Thanks to
+                your work, my company has truly taken a step forward. It was
+                exactly what I was hoping for, and even more than that.
+              </p>
+              <div class="who mt-auto">Jonathan A.</div>
             </div>
-            <p class="body">
-              The calls are real homeowners with real projects. No tire-kickers.
-              My close rate on their appointments is over 40%.
-            </p>
-            <div class="who">Dana L. — Northshore Remodeling</div>
-          </div>
-          <div class="review glass-card fit-card reveal">
-            <div class="quote">"</div>
-            <div class="stars">
-              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i
-              ><i class="fa-solid fa-star"></i>
-            </div>
-            <p class="body">
-              I spent years burning money on ads that went nowhere. This was the
-              first thing that actually put homeowners in my truck.
-            </p>
-            <div class="who">Tom B. — Bellwether Baths</div>
           </div>
         </div>
       </div>
@@ -237,12 +234,14 @@
                 ></span>
               </summary>
               <div class="faq-answer">
-                <p>
-                  A homeowner in your service area, with a real kitchen or bath
-                  project, a workable budget, and a confirmed time on your
-                  calendar. We agree on the exact criteria before we start, so
-                  there's no ambiguity about what counts.
-                </p>
+                <div class="faq-answer-inner">
+                  <p>
+                    A homeowner in your service area, with a real kitchen or
+                    bath project, a workable budget, and a confirmed time on
+                    your calendar. We agree on the exact criteria before we
+                    start, so there's no ambiguity about what counts.
+                  </p>
+                </div>
               </div>
             </details>
             <details class="faq-item">
@@ -253,10 +252,12 @@
                 ></span>
               </summary>
               <div class="faq-answer">
-                <p>
-                  We keep going. No new invoice, no awkward conversation. We run
-                  it until the number is hit. That's the deal.
-                </p>
+                <div class="faq-answer-inner">
+                  <p>
+                    We keep going. No new invoice, no awkward conversation. We
+                    run it until the number is hit. That's the deal.
+                  </p>
+                </div>
               </div>
             </details>
             <details class="faq-item">
@@ -266,11 +267,13 @@
                 ></span>
               </summary>
               <div class="faq-answer">
-                <p>
-                  One onboarding call at the start. Quick responses when an
-                  appointment is requested. That's about it. The rest runs
-                  without you so you can stay on the job.
-                </p>
+                <div class="faq-answer-inner">
+                  <p>
+                    One onboarding call at the start. Quick responses when an
+                    appointment is requested. That's about it. The rest runs
+                    without you so you can stay on the job.
+                  </p>
+                </div>
               </div>
             </details>
             <details class="faq-item">
@@ -280,11 +283,13 @@
                 ></span>
               </summary>
               <div class="faq-answer">
-                <p>
-                  No. We handle the technical side completely. All you need is a
-                  calendar with open slots and a clear picture of the kind of
-                  project you want more of.
-                </p>
+                <div class="faq-answer-inner">
+                  <p>
+                    No. We handle the technical side completely. All you need is
+                    a calendar with open slots and a clear picture of the kind
+                    of project you want more of.
+                  </p>
+                </div>
               </div>
             </details>
           </div>
@@ -300,7 +305,7 @@
       <div class="container-x text-center">
         <h2 class="reveal">Book a free strategy call</h2>
         <p
-          class="reveal mt-6 text-lg leading-relaxed text-white/70 max-w-[60ch] mx-auto"
+          class="reveal mt-6 text-lg leading-relaxed text-bgdark/60 max-w-[60ch] mx-auto"
         >
           Book a free call. We'll work out if it's a good fit, and if it is, we
           can usually get started within the week.
@@ -321,9 +326,9 @@
         <a href="/" class="font-serif text-[22px]"
           ><strong class="font-bold">Unova</strong>Media</a
         >
-        <div class="flex gap-6 text-sm text-white/60">
-          <a href="/terms-and-conditions" class="hover:text-textc">Terms</a>
-          <a href="/privacy-policy" class="hover:text-textc">Privacy</a>
+        <div class="flex gap-6 text-sm text-bgdark/50">
+          <a href="/terms-and-conditions/" class="hover:text-bgdark">Terms</a>
+          <a href="/privacy-policy/" class="hover:text-bgdark">Privacy</a>
           <span>© 2026 Unova Media</span>
         </div>
       </footer>
