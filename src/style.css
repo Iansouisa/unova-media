@@ -251,6 +251,14 @@
     background: rgba(255, 255, 255, 0.25);
   }
 
+  .about-avatar {
+    @apply w-28 h-28 rounded-full overflow-hidden border-4 border-bordr;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  .about-avatar img {
+    @apply w-full h-full object-cover;
+  }
+
   .reveal {
     opacity: 0;
     transition: opacity 0.7s ease;
