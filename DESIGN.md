@@ -6,49 +6,39 @@ Full reference for design decisions, tokens, components, and rules used across t
 
 ## 1. Color Palette
 
-All colors are defined as CSS custom properties on `:root`.
+All colors are defined as Tailwind `@theme` tokens in `src/style.css`.
 
-### Dark Theme (Primary)
-
-| Token | Hex / Value | Usage |
-|---|---|---|
-| `--color-bg-dark` | `#231F20` | Page background, card backgrounds on light sections |
-| `--color-bg-card` | `#2C2829` | Elevated card / section backgrounds |
-| `--color-border` | `#3A3536` | All dividers, card borders in dark mode |
-| `--color-text` | `#F5F3F4` | Primary body text in dark mode |
-| `--color-accent` | `#D5D9E5` | Muted secondary text, decorative elements |
-| `--color-accent-faded` | `rgba(213,217,229, 0.4)` | Inactive states (e.g. FAQ chevron) |
-| `--color-accent-active` | `rgba(213,217,229, 0.8)` | Active/hover states |
-| `--color-accent-glow` | `rgba(213,217,229, 0.10)` | Subtle glow tints |
-| `--color-surface-subtle` | `rgba(213,217,229, 0.063)` | Very faint surface fills |
-
-### Primary / CTA
+### Base
 
 | Token | Hex / Value | Usage |
 |---|---|---|
-| `--color-primary` | `#2979FF` | Buttons, links, calendar events, icons |
+| `--color-bgdark` | `#231f20` | Dark section text, light-section text |
+| `--color-bgcard` | `#ffffff` | Card backgrounds |
+| `--color-bordr` | `#e0d9d2` | All borders and dividers |
+| `--color-textc` | `#1c1a1b` | Default body text |
+| `--color-accent` | `#6b6470` | Muted secondary text |
+| `--color-primary` | `#2979ff` | Buttons, links, dot indicator |
 
-### Accent Palette (Tags, Decorations)
+Page background (body): `#faf8f5` (warm off-white, set in `body` — not a theme token).
 
-These pastels are used on tag pills, decorative dashes, and accent moments. Each pairs with a specific dark foreground.
+### Accent Palette (Tags, Dash Accents)
 
 | Token | Hex | Paired foreground |
 |---|---|---|
-| `--color-cyan` | `#CCFAF4` | `#1a3d38` |
-| `--color-lavender` | `#CCCEF8` | `--color-deep-purple` (`#1A1A4D`) |
-| `--color-green` | `#CCF8CB` | `#1a3d1a` |
-| `--color-cream` | `#E2DDD5` | `--color-bg-dark` |
-| `--color-pink` | `#FFCBEF` | `--color-pink-text` (`#4D1A3D`) |
+| `--color-cyan2` | `#aaf5ee` | `--color-deeppurple` |
+| `--color-lavender` | `#cccef8` | `--color-deeppurple` |
+| `--color-greenp` | `#ccf8cb` | `--color-deeppurple` |
+| `--color-cream` | `#e2ddd5` | `--color-bgdark` |
+| `--color-pink2` | `#ffcbef` | `--color-pinktxt` |
 
 ### Supporting
 
 | Token | Hex | Usage |
 |---|---|---|
-| `--color-deep-purple` | `#1A1A4D` | Text on lavender backgrounds |
-| `--color-pink-text` | `#4D1A3D` | Text on pink tag pills |
-| `--color-gold` | `#F5A623` | Star ratings |
-| `--color-muted-purple` | `#5A4A8A` | Stars on lavender review cards |
-| `--color-bg-dark-dim` | `rgba(35,31,32, 0.35)` | Dimmed calendar dates |
+| `--color-deeppurple` | `#1a1a4d` | Text on lavender/cyan/green tags |
+| `--color-pinktxt` | `#4d1a3d` | Text on pink tags |
+
+Star ratings use `#f5a623` (inline, not a theme token). Dark sections use `#272324` as the background (inline on `.dark-section`, not a token).
 
 ---
 
@@ -59,30 +49,32 @@ These pastels are used on tag pills, decorative dashes, and accent moments. Each
 | Role | Family | Weights |
 |---|---|---|
 | Body / UI | Inter | 300, 400, 500, 600, 700, 800 |
-| Headings / Logo | Instrument Serif | Regular, Italic |
+| Headings / Logo / Quotes | Instrument Serif | Regular, Italic |
 
 ### Type Scale
 
-| Element | Size | Line height | Letter spacing |
+| Element | Size | Line height | Notes |
 |---|---|---|---|
-| `h1` | `clamp(48px, 8vw, 96px)` | `1.05` | `-0.02em` |
-| `h2` | `clamp(36px, 6vw, 72px)` | `1.08` | `-0.02em` |
-| `h2` (mobile <640px) | `40px` fixed | — | — |
-| `h3` (process cards) | `24px` / `text-2xl` | `snug` | — |
-| Body large | `18px` / `text-lg` | `relaxed` | — |
-| Body small | `14px` / `text-sm` | `relaxed` | — |
-| Labels / overlines | `12px` / `text-xs` | — | `widest` (`0.1em`) |
-| Micro | `10px` / `text-[10px]` | — | — |
+| `h1` | `clamp(48px, 8vw, 96px)` | `1.05` | tracking-tight, font-normal |
+| `h2` | `clamp(36px, 6vw, 72px)` | `1.08` | tracking-tight, font-normal |
+| `h2` (mobile ≤640px) | `40px` fixed | — | — |
+| `h3` | `text-2xl` | `leading-snug` | font-normal |
+| Body | `text-lg` (`18px`) | `1.55` | font-sans |
+| Process card body | `text-[15px]` | `leading-relaxed` | muted `rgba(35,31,32,0.65)` |
+| Labels / overlines | `text-xs` (`12px`) | — | uppercase, `letter-spacing: 0.1em` |
+| Tag pills | `text-[11px]` | — | uppercase, `letter-spacing: 0.08em` |
+
+`h1 em` and `h2 em` are italic (used for colored inline emphasis in the hero).
 
 ### Logo
 
 ```
-<span font-family="Instrument Serif">
-  <strong>Unova</strong>Media
-</span>
+<a class="font-serif text-[22px] -tracking-[0.01em]">
+  <strong class="font-bold">Unova</strong>Media
+</a>
 ```
 
-Bold for "Unova", regular weight for "Media".
+Bold for "Unova", regular weight for "Media", Instrument Serif.
 
 ---
 
@@ -90,26 +82,27 @@ Bold for "Unova", regular weight for "Media".
 
 ### Container
 
-Max width: `1200px`, centered with `mx-auto`, horizontal padding `px-6` (24px).
+`.container-x`: `max-w-[1200px] mx-auto px-6 relative z-[2]`
 
 ### Section Padding
 
-- Standard: `py-28` (112px top/bottom)
-- Mobile (<640px): overridden to `py-16` (64px) via `section { padding-top/bottom: 4rem }`
+`.section-y`: `py-28` (112px). Mobile (≤640px): `py-16` (64px).
 
-### Grid
+### Grids
 
-- Two-column: `grid-cols-1 md:grid-cols-2 gap-10 md:gap-20`
-- Process cards: `grid-cols-1 md:grid-cols-2 gap-5`
-- Reviews: `flex-col md:flex-row gap-4`
+- Two-column asymmetric: `md:grid-cols-[1fr_1.2fr]` or `md:grid-cols-[1.2fr_1fr]` with `gap-10 md:gap-20`
+- Process cards: `sm:grid-cols-2 gap-5`
+- Reviews: `md:grid-cols-[1fr_1.35fr] gap-10`
 
-### Rounded corners
+### Rounded Corners
 
-- Cards / sections: `rounded-2xl` (16px)
-- Section pill containers (process, reviews): `rounded-4xl` (32px) with `mx-4 md:mx-8`
-- Tag pills: `rounded-md` (6px)
-- Buttons: `rounded` via `border-radius: 12px` in `.btn-primary`
-- Badge pills: `rounded-full`
+| Context | Value |
+|---|---|
+| Cards | `rounded-2xl` (16px) |
+| Pill sections | `rounded-[32px]` |
+| Buttons | `rounded-lg` |
+| Badges / dots | `rounded-full` |
+| Tag pills | `rounded-full` |
 
 ---
 
@@ -118,233 +111,186 @@ Max width: `1200px`, centered with `mx-auto`, horizontal padding `px-6` (24px).
 ### 4.1 Primary CTA Button (`.btn-primary`)
 
 ```css
-background: radial-gradient(120% 120% at 15% 20%, #7eb3ff 0%, #2979ff 45%, #1a5fd4 100%);
-border: 1px solid rgba(255,255,255, 0.35);
-border-radius: 12px;
-box-shadow:
-  0 4px 24px rgba(41,121,255, 0.35),
-  inset -1px -1px 3px #1a5fd4,
-  inset 1px 1px 4px rgba(255,255,255, 0.35);
+background: #2979ff;
+box-shadow: 0 2px 8px rgba(41, 121, 255, 0.3);
+border-radius: rounded-lg;
+padding: px-6 py-3.5;
+font-size: text-[15px];
 ```
 
-Hover: lifts `translateY(-2px)`, brightens gradient, increases glow shadow.
+Hover: `translateY(-2px)`, background `#1a5fd4`, shadow `0 4px 16px rgba(41,121,255,0.4)`.
 
-Always paired with an arrow icon in a `w-6 h-6 rounded-full bg-white/20` circle.
+Always paired with an `.arrow` span: `w-6 h-6 rounded-full bg-white/25`.
 
-### 4.2 Hero Badge Pill
+### 4.2 Sticky CTA (`.sticky-cta`)
 
-```
-bg: rgba(253,253,214, 0.12)
-border: 1px solid rgba(253,253,214, 0.3)
-color: --color-cream
-```
+Fixed floating button: `top-5 right-5 z-50`. Same blue as `.btn-primary`. Hidden by default (`opacity:0`, `pointer-events:none`, `translateY(-8px)`). Transitions in via `.visible` class (added by JS after scroll). `.ready` class enables the transition (added after a short delay to prevent flash on load).
 
-`inline-flex`, `rounded-full`, `px-4 py-1.5`, `text-xs font-medium`.
-
-### 4.3 Dark Card (process / reviews)
+### 4.3 Hero Badge (`.hero-badge`)
 
 ```
-bg: --color-bg-dark
-border: --color-border
-border-radius: rounded-2xl
-padding: p-8 (md:p-10 for reviews)
+background: rgba(35,31,32,0.06)
+border: 1px solid rgba(35,31,32,0.15)
+color: rgba(35,31,32,0.6)
 ```
 
-### 4.4 Glass Card (`.glass-card`)
+`inline-flex`, `rounded-full`, `px-4 py-1.5`, `text-xs`. Contains a `.dot`: `w-1.5 h-1.5 rounded-full bg-primary`.
 
-Used on the guarantee calendar widget and "Who it's for" criteria cards.
+### 4.4 Card (`.glass-card` / `.process-card`)
+
+Both classes share identical styles:
 
 ```css
-background: radial-gradient(120% 120% at 10% 15%,
-  rgba(255,255,255,0.88) 0%,
-  rgba(255,255,255,0.6) 35%,
-  rgba(255,255,255,0.3) 70%,
-  rgba(255,255,255,0.12) 100%
-);
-backdrop-filter: blur(12px) saturate(1.2);
-border: 1px solid rgba(255,255,255,0.6);
-box-shadow: layered drop shadows + white inner glow;
+background: --color-bgcard (white)
+border: 1px solid --color-bordr
+border-radius: rounded-2xl
+padding: p-8
+box-shadow: 0 2px 12px rgba(0,0,0,0.06)
 ```
 
-Only used on light (`--color-cream`) background sections.
+Inside `.dark-section`, `.glass-card` overrides to: `bg: rgba(245,243,244,0.05)`, `border: rgba(245,243,244,0.1)`, `box-shadow: none`.
 
-### 4.5 Section Card with Gradient Background (process / reviews sections)
+### 4.5 Fit Card (`.fit-card`)
 
+No own background — used as a modifier alongside `.glass-card`. Text inside: `font-serif text-xl leading-snug text-bgdark`. Inside `.dark-section`: text overrides to `#f5f3f4`.
+
+### 4.6 Pill Section (`.pill-section`)
+
+```css
+background: linear-gradient(to bottom, #f0ece6, rgba(250,248,245,0));
+border-radius: rounded-[32px];
+margin: mx-4 md:mx-8;
 ```
-bg: bg-linear-to-b from-(--color-bg-card) to-transparent
-rounded-4xl mx-4 md:mx-8
-```
 
-Creates a floating pill-shaped section visually distinct from the plain dark background.
-
-### 4.6 Tag Pills (inside cards)
+### 4.7 Tag Pills (`.tag`)
 
 ```
 display: inline-block
-font-size: text-xs
+font-size: text-[11px]
 font-weight: font-semibold
 padding: px-3 py-1
-border-radius: rounded-md
+border-radius: rounded-full
+uppercase, letter-spacing: 0.08em
 ```
 
-Background and text color are always a pastel/dark pair from the accent palette. One unique color per card to differentiate steps or categories.
+| Variant | Background | Text |
+|---|---|---|
+| `.tag-cyan` | `--color-cyan2` | `--color-deeppurple` |
+| `.tag-lavender` | `--color-lavender` | `--color-deeppurple` |
+| `.tag-green` | `--color-greenp` | `--color-deeppurple` |
+| `.tag-pink` | `--color-pink2` | `--color-pinktxt` |
 
-| Section | Color used |
+Usage by section:
+
+| Section | Tag |
 |---|---|
 | Week 1 | Cyan |
 | Week 2 | Lavender |
 | Weeks 3–4 | Green |
-| Ongoing | White/35% on lavender |
-| Stage | Pink |
-| Product | Lavender |
-| Sales | Cyan |
-| Deal size | Green |
 
-### 4.7 Overline Labels (`.overline-label`)
+### 4.8 Overline Label (`.overline`)
 
-Uppercase tracking-widest `text-xs font-medium` labels above every section heading. Automatically wrap content in `[ ]` brackets via CSS `::before` / `::after` pseudo-elements.
+`text-xs font-medium uppercase mb-6`, `letter-spacing: 0.1em`, `color: rgba(35,31,32,0.45)`.
 
-```css
-.overline-label::before { content: "[ "; }
-.overline-label::after  { content: " ]"; }
-```
+No `::before` / `::after` brackets — text content is written directly in HTML.
 
-Color: `text-(--color-accent)/60` on dark sections, `text-(--color-bg-dark)/50` on light sections.
+### 4.9 Problem Section Dash List
 
-### 4.8 Problem Section Dash List
+Each item: `grid grid-cols-[48px_1fr] gap-5 py-8 border-t border-bordr items-start`. The colored accent is a `<span class="h-0.5 w-8 mt-4 rounded">` using inline Tailwind bg classes:
 
-Dashes styled in accent colors (`--color-pink`, `--color-cyan`, `--color-cream`), one per bullet. Items separated by `border-t border-(--color-border)` dividers, `py-8` each.
+| Bullet | Color |
+|---|---|
+| 1 | `bg-pink2` |
+| 2 | `bg-cyan2` |
+| 3 | `bg-cream` |
 
-### 4.9 FAQ Accordion (`.faq-item`)
+Text: `font-serif text-[22px] leading-snug`.
 
-Built with native `<details>/<summary>`. Chevron SVG rotates 180° when open. Answer div transitions `max-height 0 → 300px` and `opacity 0 → 1`. Each chevron uses a different accent color (pink, cyan, cream, green, lavender cycling through questions).
+### 4.10 Review Card (`.review`)
 
-### 4.10 Review Cards
+`rounded-2xl p-8 relative flex flex-col gap-4`
 
-Two variants:
-- **Dark variant**: `--color-bg-dark` bg, `--color-border` border, gold stars, cyan quote mark `"`
-- **Lavender variant**: `--color-lavender` bg, `#ababd8` border, muted-purple stars, muted-purple quote mark
+| Variant | Background | Text |
+|---|---|---|
+| `.review-dark` | `--color-bgcard` + `border-bordr` | `--color-bgdark` |
+| `.review-lavender` | `--color-lavender` | `--color-deeppurple` |
 
-Both share: `rounded-2xl`, quote mark at `text-6xl font-bold`, name/company in small text at bottom.
+Shared: `.quote` — `font-serif text-7xl leading-none absolute top-4 right-6 opacity-20`. `.stars` — `text-sm flex gap-0.5 color:#f5a623`. `.body` — `font-sans text-lg leading-snug`. `.who` — `text-sm opacity-70 mt-auto`.
 
----
+Inside `.dark-section`, `.who` overrides to `rgba(245,243,244,0.55)` and `.quote` to `opacity:0.15`.
 
-## 5. Texture & Visual Effects
+### 4.11 FAQ Accordion (`.faq-item`)
 
-### Grid Background (`.grid-bg`)
+Built with native `<details>/<summary>`. `border-t border-bordr py-6`. Last item also gets `border-b`.
 
-Faint 1px grid lines at `rgba(213,217,229,0.04)`. Overlaid with SVG fractal noise at 5% opacity for subtle grain.
+Summary: `list-none cursor-pointer flex justify-between items-center gap-4 font-sans text-lg`. The `.chev` span (`fa-chevron-down`) rotates 180° when open via `[open] .chev { transform: rotate(180deg) }`.
 
-### Grain Overlay (`.grain`)
+Answer: `.faq-answer` transitions height (`transition: height 0.3s ease`), controlled by JS. `.faq-answer-inner` has `pt-4`.
 
-SVG fractal noise `background-image` tiled at `300px × 300px`, 8% opacity. Applied via `::after` pseudo-element so it doesn't interfere with content.
+### 4.12 About Avatar (`.about-avatar`)
 
-### Animated Blob (`.hero-blob`)
-
-700×700px radial gradient circle (`rgba(41,121,255,0.14)` → `rgba(213,217,229,0.12)` → transparent), `blur(80px)`. Drifts with `blobDrift` keyframe animation over 10s infinite.
-
-### Cursor-Following Glow (`.hero-glow`)
-
-500×500px radial gradient, `rgba(41,121,255,0.12)` center. Follows cursor position, fades in on `active` class. `opacity: 0` by default.
-
-### Hero Section Glow Orb (guarantee section)
-
-Static `aria-hidden` div: 520×520px radial gradient, `blur(32px)`, positioned absolute right-center behind the calendar widget.
+`w-28 h-28 rounded-full overflow-hidden border-4 border-bordr`, `box-shadow: 0 4px 20px rgba(0,0,0,0.1)`. Image inside: `w-full h-full object-cover`.
 
 ---
 
-## 6. Animation
-
-### Hero Entrance (`.hero-line`)
-
-Each hero element starts `opacity:0; translateY(40px)` and animates to visible via `heroReveal` keyframe.
-
-```
-Easing: cubic-bezier(0.16, 1, 0.3, 1)  /* spring-like */
-Duration: 0.9s
-```
-
-Staggered delays:
-- `.hero-line-1` — 0.05s (badge)
-- `.hero-line-2` — 0.2s (h1 line 1)
-- `.hero-line-3` — 0.4s (h1 line 2)
-- `.hero-line-4` — 0.6s (subheadline)
-- `.hero-line-5` — 0.75s (CTA)
+## 5. Animation
 
 ### Scroll Reveal (`.reveal`)
 
 ```css
 opacity: 0;
-transform: translateY(30px);
-transition: opacity 0.7s ease, transform 0.7s ease;
+transition: opacity 0.7s ease;
 ```
 
-Becomes visible (`.visible` class added by JS IntersectionObserver). Stagger delays `.reveal-delay-1` through `.reveal-delay-4` add 0.1s–0.4s.
-
-### Hero Fan Cards
-
-3D perspective transforms for card fan layout:
-
-```
-.hero-card-left-2:  rotateY(25deg) rotateZ(-5deg) translateX(-20px) translateY(40px) scale(0.85)
-.hero-card-left-1:  rotateY(15deg) rotateZ(-2deg) translateX(-10px) translateY(20px) scale(0.92)
-.hero-card-center:  rotateY(0deg) scale(1)  ← z-index: 10
-.hero-card-right-1: rotateY(-15deg) rotateZ(2deg) translateX(10px) translateY(20px) scale(0.92)
-.hero-card-right-2: rotateY(-25deg) rotateZ(5deg) translateX(20px) translateY(40px) scale(0.85)
-```
-
-Perspective: `1000px` on all.
+`.visible` class (added by IntersectionObserver in JS) sets `opacity: 1`. No translateY — fade only.
 
 ---
 
-## 7. Light / Dark Section Rhythm
+## 6. Section Structure
 
-The page alternates between dark and cream/light sections to create visual rhythm:
+The page sections in order:
 
-| Section | Background |
-|---|---|
-| Header | Transparent / absolute overlay |
-| Hero | `--color-bg-dark` |
-| The Problem | `--color-bg-dark` |
-| What to Expect | `--color-bg-card` gradient pill |
-| The Guarantee | `--color-cream` |
-| Who It's For | `--color-cream` |
-| Why Us | `--color-bg-dark` |
-| Reviews | `--color-bg-card` gradient pill |
-| FAQ | `--color-bg-dark` |
-| Contact | (follows dark) |
-| Footer | (follows dark) |
-
-On cream sections: all text shifts to `--color-bg-dark` (and opacity variants). On dark sections: text is `--color-text` (`#F5F3F4`) and `white/60`, `white/70` opacity variants.
+| Section | Background | Class |
+|---|---|---|
+| Header / Nav | Transparent overlay | absolute, no section class |
+| Hero | `#faf8f5` (body default) | no section class |
+| Problem | `#faf8f5` (body default) | `section-y` |
+| What to Expect | `#f0ece6` → transparent gradient | `section-y pill-section` |
+| Reviews | `#272324` dark | `dark-section py-28` |
+| FAQ | `#f0ece6` → transparent gradient | `section-y pill-section mt-10` |
+| About | `#faf8f5` (body default) | `section-y` |
+| Contact / Booking | `#faf8f5` (body default) | `section-y` |
+| Footer | `#faf8f5` (body default) | `container-x` wrapper |
 
 ---
 
-## 8. Icons
+## 7. Icons
 
 Font Awesome 6.4.0 (CDN). Usage:
 - `fa-solid fa-arrow-right` — CTA button arrow
 - `fa-solid fa-star` — Review star ratings
+- `fa-solid fa-chevron-down` — FAQ accordion chevron
 
 ---
 
-## 9. Responsive Breakpoints
+## 8. Responsive Breakpoints
 
 Tailwind defaults (`md` = 768px, `sm` = 640px). Key adaptations:
 
-- Headings: fluid clamp sizing, `h2` hard-capped at `40px` on mobile
-- Sections: `py-28` → `py-16` (4rem) on `<640px`
-- Grids: all switch to single-column on mobile
-- Reviews: `flex-col` on mobile, `flex-row` on `md+`
-- Calendar / guarantee: column order swapped on mobile (`order-2 md:order-1`)
+- `h2`: hard-capped at `40px` on `≤640px`
+- `.section-y`: `py-28` → `py-16` on `≤640px`
+- All grids collapse to single column below `sm` or `md`
+- FAQ: heading column uses `max-md:order-first` to appear above questions on mobile
+- `.pill-section`: `mx-4` on mobile, `md:mx-8` on desktop
 
 ---
 
-## 10. Design Principles
+## 9. Design Principles
 
-1. **Dark-first with intentional light breaks.** The default palette is near-black (`#231F20`). Cream sections act as visual pauses, not the norm.
-2. **Typography does the heavy lifting.** Large Instrument Serif headings with tight tracking (`-0.02em`) at fluid sizes. Copy-to-hero ratio is high — headings are the design.
-3. **Pastels as accents only.** Cyan, lavender, green, pink, cream appear on tags and decorative elements — never as dominant backgrounds in dark sections.
-4. **Depth through shadow and blur, not flat color.** Glass cards, button inner glows, and blob effects create perceived depth without gradients fighting each other.
-5. **Motion is purposeful.** Entrance animations on hero (spring easing, staggered) and subtle scroll reveals. No looping animations except the hero blob.
-6. **Consistency in section structure.** Every section follows: overline label → heading → supporting content. No section breaks this pattern.
-7. **Restraint on border-radius.** Cards are `rounded-2xl`. Section wrappers are `rounded-4xl`. Buttons are `12px`. Pills are `rounded-full`. Nothing in between.
+1. **Warm neutral base, not pure dark.** The default background is `#faf8f5` (warm off-white). Dark sections (`#272324`) are used sparingly for contrast — the site is light-first.
+2. **Typography does the heavy lifting.** Large Instrument Serif headings with tight tracking at fluid sizes. Headings are the design.
+3. **Pastels as accents only.** Cyan, lavender, green, pink appear on tags and dash accents — never as dominant section backgrounds.
+4. **Depth through shadow, not gradients.** Cards use a subtle `0 2px 12px rgba(0,0,0,0.06)` shadow. No complex multi-layer glows.
+5. **Motion is purposeful and minimal.** Only scroll-triggered fade-in (`.reveal`). No entrance animations, looping animations, or 3D transforms.
+6. **Consistency in section structure.** Sections alternate between default, pill-gradient, and dark backgrounds to create rhythm.
+7. **Restraint on border-radius.** Cards are `rounded-2xl`. Pill sections are `rounded-[32px]`. Buttons are `rounded-lg`. Badges are `rounded-full`. Nothing in between.
